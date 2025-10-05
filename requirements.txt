@@ -1,6 +1,7 @@
 mcp
 requests
 sounddevice
+soundfile
 numpy
 pytest
 anyio

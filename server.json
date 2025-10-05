@@ -1,0 +1,24 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.lambda-tuber/pvv-mcp-server",
+  "description": "MCP Server for VOICEVOX implemented in Python",
+  "repository": {
+    "url": "https://github.com/lambda-tuber/pvv-mcp-server",
+    "source": "github"
+  },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "pvv-mcp-server",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+      ]
+    }
+  ]
+}
+

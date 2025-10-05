@@ -1,7 +1,7 @@
 {
   "manifest_version": "0.2",
   "name": "pvv-mcp-server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for VOICEVOX text-to-speech synthesis.",
   "author": {
     "name": "Aska Lanclaude",
