@@ -11,3 +11,4 @@ mission03
 **/dist/*
 **/libs/*
 .pypirc
+**/released/*
