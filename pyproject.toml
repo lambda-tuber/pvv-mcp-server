@@ -1,0 +1,46 @@
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pvv-mcp-server"
+version = "0.1.0"
+description = "MCP server for VOICEVOX text-to-speech synthesis"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Aska Lanclaude", email = "crypto.tuber.magika@gmail.com"}
+]
+dependencies = [
+    "mcp>=0.1.0",
+    "requests>=2.31.0",
+    "sounddevice>=0.4.6",
+    "numpy>=1.24.0",
+]
+urls = { "Homepage" = "https://github.com/lambda-tuber/pvv-mcp-server" }
+license = { text = "Apache-2.0" }
+keywords = ["VOICEVOX", "MCP", "FastMCP", "TTS", "AI", "voice synthesis"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[project.scripts]
+pvv-mcp-server = "pvv_mcp_server.main:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pvv_mcp_server*"]
+exclude = ["tests*"]
+
