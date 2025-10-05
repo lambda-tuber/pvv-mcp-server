@@ -19,14 +19,28 @@ FastMCP を用いて、MCP ツールとリソースとして提供されます�
 
 ---
 
+## Requirements
+- pythonがインストールされていること
+- Claudeが起動していること
+- voicevoxが起動していること
+
 ## インストール
 
-```bash
-git clone <リポジトリURL>
-cd pvv-mcp-server
-pip install -e .
+1. pvv-mcp-serverのインストール
+    ```bash
+    > pip install pvv-mcp-server
+    ```
 
-```
+2. MCPBのインストール  
+donwloadフォルダよりMCPBファイルを取得し、Claudeにドロップする。
+
+
+
+## 参照
+- [voicevox](https://voicevox.hiroshiba.jp/)
+- [TestPyPI](https://test.pypi.org/project/pvv-mcp-server/)
+
+
 
 ## 補足
 

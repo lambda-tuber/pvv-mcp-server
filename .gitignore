@@ -9,6 +9,5 @@ mission03
 **/.pytest_cache/*
 **/*.egg-info/*
 **/dist/*
-**/*.mcpb
 **/libs/*
 .pypirc

@@ -1,4 +1,4 @@
 @echo off
 
-mcpb pack . dist/pvv-mcp-server-0.1.0.mcpb
+mcpb pack . download/pvv-mcp-server-0.1.1.mcpb
 
