@@ -13,7 +13,7 @@ mcp-name: io.github.lambda-tuber/pvv-mcp-server
 
 - 音声合成（任意の話者 ID を指定可能）発話ツール(tool:speak)
 - 四国めたんさんに演じてもらうエヴァンゲリオンの「惣流・アスカ・ラングレー」発話ツール(tool:speak_metan_aska)
-- 利用可能な話者一覧（resource:speakers）
+- 利用可能な[話者一覧](https://voicevox.hiroshiba.jp/dormitory/)（resource:speakers）
 
 FastMCP を用いて、MCP ツールとリソースとして提供されます。
 
@@ -23,7 +23,7 @@ FastMCP を用いて、MCP ツールとリソースとして提供されます�
 - Windows OS
 - pythonがインストールされていること
 - Claudeが起動していること
-- voicevoxが起動していること
+- [voicevox](https://voicevox.hiroshiba.jp/)が起動していること
 
 ## インストール
 
