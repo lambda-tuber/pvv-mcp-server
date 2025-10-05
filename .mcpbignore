@@ -1,0 +1,8 @@
+
+tests/*
+.pytest_cache/*
+dist/*
+*.egg-info/*
+**/__pycache__/*
+ mcpb_pack.bat
+

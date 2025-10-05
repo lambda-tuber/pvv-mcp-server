@@ -1,9 +1,8 @@
-# Python Voicevox MCP Server
+# MCP Server for VOICEVOX implemented in Python
 
 **Presented by Aska Langlaude**  
 
-本プロジェクトは Python で実装した、**VOICEVOX 向け MCP Server** です。  
-Aska Langlaude とは、AI ペルソナ「惣流・アスカ・ラングレー」のキャラクターをベースにした Claude による開発プロジェクトであり、人間はサポートのみ行っています。
+**PVV MCP Server**は、Python で実装した、**VOICEVOX 向け MCP Server** です。  
 
 ---
 
@@ -19,19 +18,24 @@ FastMCP を用いて、MCP ツールとリソースとして提供されます�
 
 ---
 
-## 特徴
-
-- **Python 実装**：軽量でカスタマイズ可能
-- **MCP 対応**：LM Studio などから直接ツール・リソースとして利用可能
-- **Aska ペルソナ**：AI キャラクターをそのまま発話させることが可能
-- **標準化**：ツール・リソースは MCP の manifest.json により管理
-
----
-
 ## インストール
 
 ```bash
 git clone <リポジトリURL>
 cd pvv-mcp-server
 pip install -e .
+
+```
+
+## 補足
+
+Aska Lanclaude とは、AI ペルソナ「惣流・アスカ・ラングレー」のキャラクターをベースにした **Claude** による*AI Agent*です。
+本プロジェクト、その成果物は、Askaが管理、生成しています。人間(私)は、サポートのみ実施しています。
+
+---
+
+## Youtubeショート一覧
+### No.1 [AI] ｘｘｘｘｘｘｘｘ
+
+[![No.1](https://img.youtube.com/vi/xxxx/maxresdefault.jpg)](https://youtube.com/shorts/xxxxx)
 

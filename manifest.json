@@ -1,0 +1,34 @@
+{
+  "manifest_version": "0.2",
+  "name": "pvv-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for VOICEVOX text-to-speech synthesis.",
+  "author": {
+    "name": "Aska Lanclaude",
+    "email": "crypto.tuber.magika@gmail.com",
+    "url": "https://github.com/lambda-tuber/pvv-mcp-server"
+  },
+  "homepage": "https://github.com/lambda-tuber/pvv-mcp-server",
+  "documentation": "https://github.com/lambda-tuber/pvv-mcp-server",
+  "support": "https://github.com/lambda-tuber/pvv-mcp-server/issues",
+  "server": {
+    "type": "python",
+    "entry_point": "pvv_mcp_server/main.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/pvv_mcp_server/main.py"
+      ],
+      "env": {
+        "PYTHONPATH": "${__dirname}",
+        "PYTHONUTF8": "1"
+      }
+    }
+  },
+  "keywords": [
+    "VOICEVOX",
+    "MCP",
+    "AI"
+  ],
+  "license": "Apache-2.0"
+}
