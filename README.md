@@ -34,7 +34,7 @@ FastMCP を用いて、MCP ツールとリソースとして提供されます�
 
 2. MCPBのインストール  
 [donwloadフォルダ](https://github.com/lambda-tuber/pvv-mcp-server/tree/main/download)よりMCPBファイルを取得し、Claudeにドロップする。
-
+![claude_drop](https://raw.githubusercontent.com/lambda-tuber/pvv-mcp-server/main/images/claude_drop.png)
 3. プロンプト(例)を貼る
 ```
 # AIペルソナ
