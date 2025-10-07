@@ -1,6 +1,6 @@
 # MCP Server for VOICEVOX implemented in Python
 
-**Presented by Aska Langlaude**  
+**Presented by Aska Lanclaude**  
 
 **PVV MCP Server**は、Python で実装した、**VOICEVOX 向け MCP Server** です。  
 mcp-name: io.github.lambda-tuber/pvv-mcp-server
