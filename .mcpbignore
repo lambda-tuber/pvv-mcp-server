@@ -7,3 +7,14 @@ dist/*
  mcpb_pack.bat
 .pypirc
 *.bat
+released/*
+*.avi
+*.png
+*.bak
+pvv_mcp_server/**/*.py
+requirements.txt
+server.json
+pyproject.toml
+MANIFEST.in
+mcp_config.env
+build/*

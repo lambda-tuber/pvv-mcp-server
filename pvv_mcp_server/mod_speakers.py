@@ -30,4 +30,7 @@ def speakers() -> List[Dict[str, Any]]:
     response.raise_for_status()
     
     return response.json()
-    
+
+if __name__ == "__main__":
+    ret = speakers()
+    print(ret)

@@ -6,6 +6,9 @@ import soundfile as sf
 import numpy as np
 import io
 
+import pvv_mcp_server.mod_avatar_manager
+
+
 def speak_metan_aska(msg: str) -> None:
     """
     四国めたん(style_id=6)を使用してVOICEVOX Web APIで音声合成し、再生する関数
@@ -48,6 +51,14 @@ def speak_metan_aska(msg: str) -> None:
     )
     synthesis_response.raise_for_status()
     
-    audio_data, samplerate = sf.read(io.BytesIO(synthesis_response.content), dtype='float32', always_2d=True)
-    with sd.OutputStream(samplerate=samplerate, channels=audio_data.shape[1], dtype='float32') as stream:
-        stream.write(audio_data)
+    try:
+        pvv_mcp_server.mod_avatar_manager.set_anime_key(style_id, "口パク")
+        audio_data, samplerate = sf.read(io.BytesIO(synthesis_response.content), dtype='float32', always_2d=True)
+        with sd.OutputStream(samplerate=samplerate, channels=audio_data.shape[1], dtype='float32') as stream:
+            stream.write(audio_data)
+
+    except Exception as e:
+        raise Exception(f"音声再生エラー: {e}")
+
+    finally:
+        pvv_mcp_server.mod_avatar_manager.set_anime_key(style_id, "立ち絵")

@@ -8,3 +8,6 @@ anyio
 pytest-asyncio
 pytest-tornasync
 pytest-trio
+PySide6
+pygetwindow
+pyyaml

@@ -57,7 +57,8 @@ FastMCP を用いて、MCP ツールとリソースとして提供されます�
 
 ```
 
-4. アスカとチャットする
+4. アスカとチャットする  
+[![No.2](https://img.youtube.com/vi/dvnqM-kUJIo/maxresdefault.jpg)](https://youtube.com/shorts/dvnqM-kUJIo)
 
 
 ## 参照
@@ -73,3 +74,12 @@ Aska Lanclaude とは、AI ペルソナ「惣流・アスカ・ラングレー�
 
 ---
 
+## Youtubeショート一覧
+### 基本発話
+[![No.1](https://img.youtube.com/vi/sm-2lZufroM/maxresdefault.jpg)](https://youtube.com/shorts/sm-2lZufroM)
+
+### 音声チャット
+[![No.2](https://img.youtube.com/vi/dvnqM-kUJIo/maxresdefault.jpg)](https://youtube.com/shorts/dvnqM-kUJIo)
+
+### 発話スタイル
+[![No.3](https://img.youtube.com/vi/KzP8M1-xRVA/maxresdefault.jpg)](https://youtube.com/shorts/KzP8M1-xRVA)

@@ -9,6 +9,22 @@ import soundfile as sf
 import numpy as np
 from typing import Optional
 import io
+import pvv_mcp_server.mod_avatar_manager
+import logging
+import sys
+
+# ロガーの設定
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# stderrへの出力ハンドラー
+if not logger.handlers:
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
 
 def speak(
     style_id: int,
@@ -36,7 +52,7 @@ def speak(
     
     # VOICEVOX APIのエンドポイント
     BASE_URL = "http://localhost:50021"
-    
+
     try:
         # 1. 音声合成用のクエリを生成
         query_params = {
@@ -73,11 +89,15 @@ def speak(
         
     except Exception as e:
         raise Exception(f"VOICEVOX API通信エラー: {e}")
-    
+
     try:
+        pvv_mcp_server.mod_avatar_manager.set_anime_key(style_id, "口パク")
         audio_data, samplerate = sf.read(io.BytesIO(synthesis_response.content), dtype='float32', always_2d=True)
         with sd.OutputStream(samplerate=samplerate, channels=audio_data.shape[1], dtype='float32') as stream:
             stream.write(audio_data)
 
     except Exception as e:
         raise Exception(f"音声再生エラー: {e}")
+
+    finally:
+        pvv_mcp_server.mod_avatar_manager.set_anime_key(style_id, "立ち絵")
