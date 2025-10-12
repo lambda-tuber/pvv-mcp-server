@@ -6,6 +6,7 @@ mod_update_position.py
 import pygetwindow as gw
 import logging
 import sys
+import ctypes
 
 # ロガーの設定
 logger = logging.getLogger(__name__)
@@ -19,6 +20,35 @@ if not logger.handlers:
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
+def get_windows_scaling() -> float:
+    """
+    Windows 10/11 向け DPIスケール取得関数（Per-Monitor v2対応）
+    現在のモニタのスケーリング倍率（例: 1.25, 1.5）を返す
+    スケーリング変更時にも自動で追従
+    """
+    try:
+        user32 = ctypes.windll.user32
+        shcore = ctypes.windll.shcore
+
+        # Windows 10 以降: Per-Monitor v2 DPI対応
+        user32.SetProcessDpiAwarenessContext(-4)  # DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2
+
+        # 現在フォアグラウンドウィンドウのモニタを取得
+        hwnd = user32.GetForegroundWindow()
+        monitor = user32.MonitorFromWindow(hwnd, 1)  # MONITOR_DEFAULTTONEAREST
+
+        # モニタのDPIを取得
+        dpiX = ctypes.c_uint()
+        dpiY = ctypes.c_uint()
+        shcore.GetDpiForMonitor(monitor, 0, ctypes.byref(dpiX), ctypes.byref(dpiY))
+
+        scale = dpiX.value / 96.0  # 96 DPI = 100%
+        return scale
+
+    except Exception as e:
+        logger.warning(f"Failed to get DPI scaling: {e}")
+        return 1.0
+        
 
 def update_position(self) -> None:
     """
@@ -47,6 +77,7 @@ def update_position(self) -> None:
         windows = gw.getWindowsWithTitle(self.app_title)
         
         if not windows:
+            # self.follow_timer.stop()
             logger.warning(f"Window with title '{self.app_title}' not found")
             return
         
@@ -58,7 +89,16 @@ def update_position(self) -> None:
         target_y = target_window.top
         target_width = target_window.width
         target_height = target_window.height
-        
+
+        # DPIスケーリング取得
+        scale = get_windows_scaling()
+
+        # Qtは実ピクセル座標なので、pygetwindowの論理座標を / scale で補正
+        target_x = int(target_x / scale)
+        target_y = int(target_y / scale)
+        target_width = int(target_width / scale)
+        target_height = int(target_height / scale)
+
         # 自身のウィンドウサイズを取得
         avatar_width = self.width()
         avatar_height = self.height()

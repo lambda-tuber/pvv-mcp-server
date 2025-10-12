@@ -5,6 +5,7 @@ VOICEVOX APIから話者一覧を取得する
 import requests
 from typing import List, Dict, Any
 
+_cache = None
 
 # VOICEVOX APIのベースURL
 VOICEVOX_URL = "http://localhost:50021"
@@ -24,13 +25,21 @@ def speakers() -> List[Dict[str, Any]]:
     Raises:
         requests.exceptions.RequestException: API呼び出しに失敗した場合
     """
+    global _cache
+
+    if _cache:
+      return _cache
+
     endpoint = f"{VOICEVOX_URL}/speakers"
     
     response = requests.get(endpoint)
     response.raise_for_status()
     
-    return response.json()
+    _cache = response.json()
+    return _cache
 
 if __name__ == "__main__":
     ret = speakers()
+    ret = speakers()
     print(ret)
+

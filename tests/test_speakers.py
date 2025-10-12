@@ -1,28 +1,34 @@
 """
 test_speakers.py
-mod_speakers.pyのユニットテスト
+mod_speakers.speakers関数のユニットテスト
 """
 import pytest
-from unittest.mock import patch, Mock
-from pvv_mcp_server.mod_speakers import speakers
+import requests
+from unittest.mock import patch, MagicMock
+from pvv_mcp_server.mod_speakers import speakers, _cache
 
 
 class TestSpeakers:
     """speakers関数のテストクラス"""
     
-    @patch('pvv_mcp_server.mod_speakers.requests.get')
-    def test_speakers_success(self, mock_get):
-        """正常系: 話者一覧が正しく取得できること"""
-        # モックレスポンスの準備
-        mock_response = Mock()
-        mock_response.json.return_value = [
+    @pytest.fixture(autouse=True)
+    def reset_cache(self):
+        """各テストの前後でキャッシュをリセット"""
+        import pvv_mcp_server.mod_speakers as mod
+        mod._cache = None
+        yield
+        mod._cache = None
+    
+    def test_speakers_success(self):
+        """正常系: API呼び出しが成功し、話者一覧を取得できる"""
+        # モックレスポンスデータ
+        mock_data = [
             {
                 "name": "四国めたん",
                 "speaker_uuid": "7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff",
                 "styles": [
                     {"name": "ノーマル", "id": 2},
-                    {"name": "あまあま", "id": 0},
-                    {"name": "ツンツン", "id": 6}
+                    {"name": "あまあま", "id": 0}
                 ]
             },
             {
@@ -33,43 +39,82 @@ class TestSpeakers:
                 ]
             }
         ]
-        mock_response.raise_for_status = Mock()
-        mock_get.return_value = mock_response
         
-        # テスト実行
-        result = speakers()
-        
-        # 検証
-        mock_get.assert_called_once_with("http://localhost:50021/speakers")
-        assert len(result) == 2
-        assert result[0]["name"] == "四国めたん"
-        assert result[1]["name"] == "ずんだもん"
-        assert len(result[0]["styles"]) == 3
+        # requests.getをモック
+        with patch('pvv_mcp_server.mod_speakers.requests.get') as mock_get:
+            mock_response = MagicMock()
+            mock_response.json.return_value = mock_data
+            mock_response.raise_for_status = MagicMock()
+            mock_get.return_value = mock_response
+            
+            # 関数実行
+            result = speakers()
+            
+            # 検証
+            assert result == mock_data
+            mock_get.assert_called_once_with("http://localhost:50021/speakers")
+            mock_response.raise_for_status.assert_called_once()
     
-    @patch('pvv_mcp_server.mod_speakers.requests.get')
-    def test_speakers_empty_list(self, mock_get):
-        """正常系: 話者が0件の場合"""
-        # モックレスポンスの準備
-        mock_response = Mock()
-        mock_response.json.return_value = []
-        mock_response.raise_for_status = Mock()
-        mock_get.return_value = mock_response
+    def test_speakers_cache(self):
+        """キャッシュ機能: 2回目の呼び出しではAPIを呼ばずキャッシュを返す"""
+        mock_data = [
+            {
+                "name": "四国めたん",
+                "speaker_uuid": "7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff",
+                "styles": [{"name": "ノーマル", "id": 2}]
+            }
+        ]
         
-        # テスト実行
-        result = speakers()
-        
-        # 検証
-        assert result == []
+        with patch('pvv_mcp_server.mod_speakers.requests.get') as mock_get:
+            mock_response = MagicMock()
+            mock_response.json.return_value = mock_data
+            mock_response.raise_for_status = MagicMock()
+            mock_get.return_value = mock_response
+            
+            # 1回目の呼び出し
+            result1 = speakers()
+            assert result1 == mock_data
+            assert mock_get.call_count == 1
+            
+            # 2回目の呼び出し（キャッシュから返される）
+            result2 = speakers()
+            assert result2 == mock_data
+            assert mock_get.call_count == 1  # API呼び出しは1回のまま
+            
+            # 結果が同じオブジェクトであることを確認
+            assert result1 is result2
     
-    @patch('pvv_mcp_server.mod_speakers.requests.get')
-    def test_speakers_api_error(self, mock_get):
-        """異常系: API呼び出しに失敗した場合"""
-        # モックで例外を発生させる
-        mock_get.side_effect = Exception("API Error")
+    def test_speakers_api_error(self):
+        """異常系: APIエラーが発生した場合、例外が発生する"""
+        with patch('pvv_mcp_server.mod_speakers.requests.get') as mock_get:
+            # HTTPエラーをシミュレート
+            mock_get.side_effect = requests.exceptions.RequestException("API Error")
+            
+            # 例外が発生することを確認
+            with pytest.raises(requests.exceptions.RequestException):
+                speakers()
+    
+    def test_speakers_http_error(self):
+        """異常系: HTTPステータスエラーが発生した場合、例外が発生する"""
+        with patch('pvv_mcp_server.mod_speakers.requests.get') as mock_get:
+            mock_response = MagicMock()
+            mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError("404 Not Found")
+            mock_get.return_value = mock_response
+            
+            # 例外が発生することを確認
+            with pytest.raises(requests.exceptions.HTTPError):
+                speakers()
+    
+    def test_speakers_return_type(self):
+        """戻り値の型検証: Listが返されることを確認"""
+        mock_data = []
         
-        # テスト実行と検証
-        with pytest.raises(Exception) as excinfo:
-            speakers()
-        assert "API Error" in str(excinfo.value)
-
-        
+        with patch('pvv_mcp_server.mod_speakers.requests.get') as mock_get:
+            mock_response = MagicMock()
+            mock_response.json.return_value = mock_data
+            mock_response.raise_for_status = MagicMock()
+            mock_get.return_value = mock_response
+            
+            result = speakers()
+            
+            assert isinstance(result, list)

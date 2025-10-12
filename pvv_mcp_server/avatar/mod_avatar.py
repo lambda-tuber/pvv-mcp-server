@@ -2,11 +2,9 @@ import sys
 from PySide6.QtWidgets import QApplication, QWidget, QLabel
 from PySide6.QtCore import Qt, QTimer, QPoint
 from PySide6.QtGui import QPixmap, QTransform, QShortcut, QKeySequence
+from PySide6.QtCore import Slot
 import pygetwindow as gw
 import os
-#import ctypes
-#user32 = ctypes.windll.user32
-#user32.SetProcessDPIAware()  # Pythonプロセス自体を DPI 対応
 
 import pvv_mcp_server.avatar.mod_load_pixmaps
 import pvv_mcp_server.avatar.mod_update_frame
@@ -57,6 +55,10 @@ class AvatarWindow(QWidget):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.right_click_context_menu)
 
+    @Slot()
+    def showWindow(self):
+        """スレッドセーフなshow"""
+        self.show()
 
     # 右クリックメニュー
     def right_click_context_menu(self, position: QPoint) -> None:
@@ -98,6 +100,7 @@ class AvatarWindow(QWidget):
         return
 
     # セッター
+    @Slot(str)
     def set_anime_key(self, anime_key):
         if anime_key in self.pixmap_dict:
             self.anime_key = anime_key

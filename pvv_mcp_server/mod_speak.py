@@ -62,8 +62,7 @@ def speak(
         
         query_response = requests.post(
             f"{BASE_URL}/audio_query",
-            params=query_params,
-            timeout=10
+            params=query_params
         )
         query_response.raise_for_status()
         query_data = query_response.json()
@@ -73,7 +72,7 @@ def speak(
         query_data["pitchScale"] = pitchScale
         query_data["intonationScale"] = intonationScale
         query_data["volumeScale"] = volumeScale
-        
+
         # 3. 音声合成を実行
         synthesis_params = {
             "speaker": style_id
@@ -82,8 +81,7 @@ def speak(
         synthesis_response = requests.post(
             f"{BASE_URL}/synthesis",
             params=synthesis_params,
-            json=query_data,
-            timeout=30
+            json=query_data
         )
         synthesis_response.raise_for_status()
         

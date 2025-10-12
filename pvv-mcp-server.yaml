@@ -2,10 +2,17 @@ avatar:
   "enabled" : False
   "target" : "Claude"
   "avatars":
+    #
+    #  - 「enable」をTrueにする場合は、Claudeを起動する際、Voicevoxが起動している必要があります。
+    #  - 「立ち絵」と「口パク」は必須です。Claudeが音声再生時に自動的にアニメーションします。
+    #  - 「画像」の種別ごとに、表示するpngファイルを配列として複数指定すると、アニメーションします。
+    #  - 「画像」リストが空配列の場合は、Voicevoxのspeaker_infoにあるportraitを表示します。
+    #  -  Claude起動時に読み込むので、少し時間がかかります。
+    #  - 以下、画像ファイル指定の例です。
     10: &style_id_10     # VOICEVOX:雨晴はう ノーマル
       "話者" : "雨晴はう"
       "位置" : left_in  # left_out, left_in, right_in, right_out,
-      "表示" : False
+      "表示" : True
       "反転" : False
       "縮尺" : 50
       "画像" :
@@ -22,17 +29,10 @@ avatar:
         "口パク": []
 
     #
-    #  - 「enable」をTrueにする場合は、Claudeを起動する際、Voicevoxが起動している必要があります。
-    #  - 「立ち絵」と「口パク」は必須です。Claudeが音声再生時に自動的にアニメーションします。
-    #  - 「画像」の種別ごとに、表示するpngファイルを配列として複数指定すると、アニメーションします。
-    #  - 「画像」リストが空配列の場合は、Voicevoxのspeaker_infoにあるportraitを表示します。
-    #  -  Claude起動時に読み込むので、少し時間がかかります。
-    #  - 以下、画像ファイル指定の例です。
-    #
     # 0:  &style_id_0   # VOICEVOX:四国めたん あまあま
     #   "話者" : "四国めたん"
     #   "位置" : right_out  # left_out, left_in, right_in, right_out,
-    #   "表示" : False
+    #   "表示" : True
     #   "反転" : False
     #   "縮尺" : 50
     #   "画像" :
@@ -79,7 +79,7 @@ avatar:
     # 11: &style_id_11     # VOICEVOX:玄野武宏 (CV: ガロ) ノーマル
     #   "話者" : "玄野武宏"
     #   "位置" : left_out  # left_out, left_in, right_in, right_out,
-    #   "表示" : False
+    #   "表示" : True
     #   "反転" : True
     #   "縮尺" : 50
     #   "画像" :
