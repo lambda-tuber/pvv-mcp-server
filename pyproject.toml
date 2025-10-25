@@ -5,10 +5,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pvv-mcp-server"
-version = "0.4.0"
+version = "0.4.1"
 description = "MCP server for VOICEVOX text-to-speech synthesis"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [
     {name = "Aska Lanclaude", email = "crypto.tuber.magika@gmail.com"}
 ]
@@ -20,7 +20,8 @@ dependencies = [
     "numpy>=1.24.0",
     "PySide6>=6.9.3",
     "pygetwindow>=0.0.9",
-    "pyyaml>=6.0.3"
+    "pyyaml>=6.0.3",
+    "Pillow>=11.3.0"
 ]
 urls = { "Homepage" = "https://github.com/lambda-tuber/pvv-mcp-server" }
 license = "Apache-2.0"
