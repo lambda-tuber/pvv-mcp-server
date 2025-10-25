@@ -3,9 +3,13 @@ mod_speaker_info.py
 voicevox web apiでspeaker情報を取得する。
 """
 import requests
+import json
 from typing import Dict, Any
 from pvv_mcp_server.mod_speakers import speakers
+import logging
 
+# ロガーの設定
+logger = logging.getLogger(__name__)
 
 def speaker_info(speaker_id: str) -> Dict[str, Any]:
     """
@@ -29,8 +33,9 @@ def speaker_info(speaker_id: str) -> Dict[str, Any]:
         uuid = speaker_id
     else:
         # 話者名の場合、speakers関数で話者リストを取得して検索
-        speakers_list = speakers()
-        
+        content = speakers()
+        speakers_list = json.loads(content.decode("utf-8"))
+
         # 話者名が部分一致する話者を検索
         matched_speaker = None
         for speaker in speakers_list:
@@ -45,26 +50,12 @@ def speaker_info(speaker_id: str) -> Dict[str, Any]:
     
     # speaker_info APIをリクエスト
     url = f"{VOICEVOX_API_BASE}/speaker_info"
-    params = {"speaker_uuid": uuid}
+    params = {"speaker_uuid": uuid, "resource_format":"url"}
     #print(params)
     try:
         response = requests.get(url, params=params, timeout=10)
         response.raise_for_status()
         data = response.json()
-        
-        # 音声、base64画像データを省略
-        # if "portrait" in data and data["portrait"]:
-        #     data["portrait"] = "[画像データ省略]"
-        
-        # if "style_infos" in data:
-        #     for style in data["style_infos"]:
-        #         if "icon" in style and style["icon"]:
-        #             style["icon"] = "[画像データ省略]"
-        #         if "portrait" in style and style["portrait"]:
-        #             style["portrait"] = "[画像データ省略]"
-        #         if "voice_samples" in style and style["voice_samples"]:
-        #             style["voice_samples"] = ["[サンプル音声データ省略]"]
-
         return data
 
     except requests.RequestException as e:

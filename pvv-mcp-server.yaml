@@ -1,76 +1,47 @@
 avatar:
   "enabled" : False
+  "save_file" : "default"
   "target" : "Claude"
   "avatars":
-    #
-    #  - 「enable」をTrueにする場合は、Claudeを起動する際、Voicevoxが起動している必要があります。
-    #  - 「立ち絵」と「口パク」は必須です。Claudeが音声再生時に自動的にアニメーションします。
-    #  - 「画像」の種別ごとに、表示するpngファイルを配列として複数指定すると、アニメーションします。
-    #  - 「画像」リストが空配列の場合は、Voicevoxのspeaker_infoにあるportraitを表示します。
-    #  -  Claude起動時に読み込むので、少し時間がかかります。
-    #  - 以下、画像ファイル指定の例です。
     10: &style_id_10     # VOICEVOX:雨晴はう ノーマル
       "話者" : "雨晴はう"
       "位置" : left_in  # left_out, left_in, right_in, right_out,
       "表示" : True
       "反転" : False
-      "縮尺" : 50
-      "画像" :
-        "立ち絵": []
-        "口パク": []
+      "縮尺" : 75
+      "画像" : "portrait"
+
     14: &style_id_14     # VOICEVOX:冥鳴ひまり ノーマル
       "話者" : "冥鳴ひまり"
       "位置" : right_in  # left_out, left_in, right_in, right_out,
       "表示" : True
       "反転" : False
-      "縮尺" : 50
-      "画像" :
-        "立ち絵": []
-        "口パク": []
+      "縮尺" : 75
+      "画像" : "portrait"
 
-    #
-    # 0:  &style_id_0   # VOICEVOX:四国めたん あまあま
-    #   "話者" : "四国めたん"
-    #   "位置" : right_out  # left_out, left_in, right_in, right_out,
+    # 8: &style_id_8     # VOICEVOX:春日部つむぎ ノーマル or 波音リツ(9:ノーマル)
+    #   "話者" : "春日部つむぎ"
+    #   "位置" : right_in  # left_out, left_in, right_in, right_out,
     #   "表示" : True
     #   "反転" : False
     #   "縮尺" : 50
-    #   "画像" :
-    #     "立ち絵":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #     "口パク":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_b.png
-    #     "まばたき":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_h.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #     "えがお":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_g.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_g.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_g.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_g.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_g.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_a.png
-    #     "おこ":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_c.png
-    #     "にやり":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_f.png
-    #     "えっ":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_e.png
-    #     "ん－":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/josei_20_pw/josei_20_d.png
+    #   "画像" : "http://nicotalk.com/sozai/ゆっくりキャラ素材/ゆっくり霊夢改.zip"
+
+    # 3: &style_id_3     # VOICEVOX:ずんだもん ノーマル or (7:ツンツン)
+    #   "話者" : "ずんだもん"
+    #   "位置" : left_in  # left_out, left_in, right_in, right_out,
+    #   "表示" : True
+    #   "反転" : False
+    #   "縮尺" : 50
+    #   "画像" : "http://nicotalk.com/sozai/ゆっくりキャラ素材/ゆっくり魔理沙改.zip"
+
+    # 0:  &style_id_0   # VOICEVOX:四国めたん あまあま
+    #   "話者" : "四国めたん"
+    #   "位置" : right_center  # left_out, left_in, right_in, right_out,
+    #   "表示" : True
+    #   "反転" : False
+    #   "縮尺" : 50
+    #   "画像" : "C:\\work\\lambda-tuber\\ai-trial\\mission16\\docs\\josei_20_pw.zip"
     # 2:  *style_id_0   # VOICEVOX:四国めたん ノーマル
     # 4:  *style_id_0   # VOICEVOX:四国めたん セクシー
     # 6:  *style_id_0   # VOICEVOX:四国めたん ツンツン
@@ -78,26 +49,11 @@ avatar:
     # 37: *style_id_0   # VOICEVOX:四国めたん ヒソヒソ
     # 11: &style_id_11     # VOICEVOX:玄野武宏 (CV: ガロ) ノーマル
     #   "話者" : "玄野武宏"
-    #   "位置" : left_out  # left_out, left_in, right_in, right_out,
+    #   "位置" : left_center  # left_out, left_in, right_in, right_out,
     #   "表示" : True
     #   "反転" : True
     #   "縮尺" : 50
-    #   "画像" :
-    #     "立ち絵":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_g.png
-    #     "口パク":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_g.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_h.png
-    #     "えがお":
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_g.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_i.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_f.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_f.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_f.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_f.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_f.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_i.png
-    #       - C:/work/lambda-tuber/ai-trial/mission16/docs/animal_01_neko/animal_01_g.png
+    #   "画像" : "C:\\work\\lambda-tuber\\ai-trial\\mission16\\docs\\animal_01_neko"
     # 39: *style_id_11     # VOICEVOX:玄野武宏 (CV: ガロ) 喜び
     # 40: *style_id_11     # VOICEVOX:玄野武宏 (CV: ガロ) ツンギレ
     # 41: *style_id_11     # VOICEVOX:玄野武宏 (CV: ガロ) 悲しみ
