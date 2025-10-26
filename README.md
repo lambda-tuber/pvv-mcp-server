@@ -82,4 +82,9 @@ Aska Lanclaude とは、AI ペルソナ「惣流・アスカ・ラングレー�
 [![No.2](https://img.youtube.com/vi/dvnqM-kUJIo/maxresdefault.jpg)](https://youtube.com/shorts/dvnqM-kUJIo)
 
 ### 発話スタイル
-[![No.3](https://img.youtube.com/vi/KzP8M1-xRVA/maxresdefault.jpg)](https://youtube.com/shorts/KzP8M1-xRVA)
+[![No.3](https://img.youtube.com/vi/z8Ebm9WOGgw/maxresdefault.jpg)](https://youtube.com/shorts/z8Ebm9WOGgw)
+
+### 立ち絵表示
+[![No.3](https://img.youtube.com/vi/3Wm6mhHxBVU/maxresdefault.jpg)](https://youtube.com/shorts/3Wm6mhHxBVU)
+
+----

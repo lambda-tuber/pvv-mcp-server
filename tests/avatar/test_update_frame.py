@@ -1,291 +1,200 @@
-# tests/avatar/test_update_frame.py
+"""
+test_update_frame.py
+mod_update_frameのユニットテスト
+"""
+
 import pytest
+import sys
 from unittest.mock import Mock, MagicMock, patch
-from PySide6.QtWidgets import QLabel
-from PySide6.QtGui import QPixmap
-from PySide6.QtCore import QSize
+from pathlib import Path
+
+# プロジェクトルートをパスに追加
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
 from pvv_mcp_server.avatar.mod_update_frame import update_frame
 
 
 class TestUpdateFrame:
-    """update_frame関数のユニットテスト"""
-
-    def test_update_frame_normal_case(self):
-        """正常系: フレーム更新とインデックスのインクリメント"""
-        # Arrange
-        mock_self = Mock()
-        mock_label = Mock(spec=QLabel)
-        mock_pixmap1 = Mock(spec=QPixmap)
-        mock_pixmap2 = Mock(spec=QPixmap)
-        mock_pixmap3 = Mock(spec=QPixmap)
+    """update_frame関数のテストクラス"""
+    
+    @pytest.fixture
+    def mock_pixmap(self):
+        """QPixmapのモックを作成"""
+        pixmap = Mock()
+        pixmap.width.return_value = 300
+        pixmap.height.return_value = 500
+        return pixmap
+    
+    @pytest.fixture
+    def mock_dialog(self, mock_pixmap):
+        """Dialogのモックを作成"""
+        dialog = Mock()
+        dialog.update_frame = Mock()
+        dialog.get_current_pixmap = Mock(return_value=mock_pixmap)
+        return dialog
+    
+    @pytest.fixture
+    def mock_avatar(self, mock_dialog):
+        """AvatarWindowのモックを作成"""
+        avatar = Mock()
+        avatar.zip_data = b"dummy_zip_data"  # zipデータが存在する状態
+        avatar.anime_type = "idle"
+        avatar.dialogs = {"idle": mock_dialog}
         
-        # QPixmapのsizeメソッドをモック
-        mock_size = Mock(spec=QSize)
-        mock_pixmap1.size.return_value = mock_size
-        mock_pixmap2.size.return_value = mock_size
-        mock_pixmap3.size.return_value = mock_size
+        # QLabel のモック
+        avatar.label = Mock()
+        avatar.label.setPixmap = Mock()
+        avatar.label.adjustSize = Mock()
+        avatar.adjustSize = Mock()
         
-        mock_self.label = mock_label
-        mock_self.anime_key = "idle"
-        mock_self.anime_index = 0
-        mock_self.flip = False
-        mock_self.pixmap_dict = {
-            "idle": {
-                False: [mock_pixmap1, mock_pixmap2, mock_pixmap3],
-                True: []
-            }
+        return avatar
+    
+    def test_update_frame_success(self, mock_avatar, mock_dialog, mock_pixmap):
+        """正常にフレームが更新される場合のテスト"""
+        update_frame(mock_avatar)
+        
+        # dialogのupdate_frameが呼ばれることを確認
+        mock_dialog.update_frame.assert_called_once()
+        
+        # dialogからpixmapを取得することを確認
+        mock_dialog.get_current_pixmap.assert_called_once()
+        
+        # labelにpixmapが設定されることを確認
+        mock_avatar.label.setPixmap.assert_called_once_with(mock_pixmap)
+        
+        # サイズ調整が呼ばれることを確認
+        mock_avatar.label.adjustSize.assert_called_once()
+        mock_avatar.adjustSize.assert_called_once()
+    
+    def test_update_frame_no_zip_data(self, mock_avatar):
+        """zip_dataが存在しない場合のテスト"""
+        mock_avatar.zip_data = None
+        
+        update_frame(mock_avatar)
+        
+        # 何も処理されないことを確認
+        assert not mock_avatar.label.setPixmap.called
+    
+    def test_update_frame_no_dialog(self, mock_avatar):
+        """該当するdialogが存在しない場合のテスト"""
+        mock_avatar.anime_type = "non_existent"
+        
+        update_frame(mock_avatar)
+        
+        # 何も処理されないことを確認
+        assert not mock_avatar.label.setPixmap.called
+    
+    def test_update_frame_dialog_none(self, mock_avatar):
+        """dialogsにNoneが入っている場合のテスト"""
+        mock_avatar.dialogs = {"idle": None}
+        
+        update_frame(mock_avatar)
+        
+        # 何も処理されないことを確認
+        assert not mock_avatar.label.setPixmap.called
+    
+    def test_update_frame_pixmap_none(self, mock_avatar, mock_dialog):
+        """get_current_pixmapがNoneを返す場合のテスト"""
+        mock_dialog.get_current_pixmap.return_value = None
+        
+        update_frame(mock_avatar)
+        
+        # update_frameは呼ばれる
+        mock_dialog.update_frame.assert_called_once()
+        
+        # しかしsetPixmapは呼ばれない
+        assert not mock_avatar.label.setPixmap.called
+    
+    def test_update_frame_exception_in_dialog_update(self, mock_avatar, mock_dialog):
+        """dialog.update_frame()で例外が発生する場合のテスト"""
+        mock_dialog.update_frame.side_effect = Exception("Test exception")
+        
+        # 例外が外部に漏れないことを確認
+        update_frame(mock_avatar)
+        
+        # setPixmapは呼ばれない
+        assert not mock_avatar.label.setPixmap.called
+    
+    def test_update_frame_exception_in_get_pixmap(self, mock_avatar, mock_dialog):
+        """dialog.get_current_pixmap()で例外が発生する場合のテスト"""
+        mock_dialog.get_current_pixmap.side_effect = Exception("Test exception")
+        
+        # 例外が外部に漏れないことを確認
+        update_frame(mock_avatar)
+        
+        # setPixmapは呼ばれない
+        assert not mock_avatar.label.setPixmap.called
+    
+    def test_update_frame_exception_in_set_pixmap(self, mock_avatar, mock_dialog, mock_pixmap):
+        """label.setPixmap()で例外が発生する場合のテスト"""
+        mock_avatar.label.setPixmap.side_effect = Exception("Test exception")
+        
+        # 例外が外部に漏れないことを確認
+        update_frame(mock_avatar)
+        
+        # update_frameとget_current_pixmapは呼ばれる
+        mock_dialog.update_frame.assert_called_once()
+        mock_dialog.get_current_pixmap.assert_called_once()
+    
+    def test_update_frame_multiple_anime_types(self, mock_avatar, mock_pixmap):
+        """複数のアニメタイプが存在する場合のテスト"""
+        # 複数のdialogを設定
+        mock_dialog_idle = Mock()
+        mock_dialog_idle.update_frame = Mock()
+        mock_dialog_idle.get_current_pixmap = Mock(return_value=mock_pixmap)
+        
+        mock_dialog_talk = Mock()
+        mock_dialog_talk.update_frame = Mock()
+        mock_dialog_talk.get_current_pixmap = Mock(return_value=mock_pixmap)
+        
+        mock_avatar.dialogs = {
+            "idle": mock_dialog_idle,
+            "talk": mock_dialog_talk
         }
-        mock_self.resize = Mock()
+        mock_avatar.anime_type = "talk"
         
-        # Act
-        update_frame(mock_self)
+        update_frame(mock_avatar)
         
-        # Assert
-        mock_label.setPixmap.assert_called_once_with(mock_pixmap1)
-        mock_label.resize.assert_called_once_with(mock_size)
-        mock_self.resize.assert_called_once_with(mock_size)
-        assert mock_self.anime_index == 1
-
-    def test_update_frame_with_flip_true(self):
-        """正常系: flip=Trueの場合の動作確認"""
-        # Arrange
-        mock_self = Mock()
-        mock_label = Mock(spec=QLabel)
-        mock_pixmap_flipped1 = Mock(spec=QPixmap)
-        mock_pixmap_flipped2 = Mock(spec=QPixmap)
+        # talkのdialogだけが呼ばれることを確認
+        assert not mock_dialog_idle.update_frame.called
+        mock_dialog_talk.update_frame.assert_called_once()
+        mock_dialog_talk.get_current_pixmap.assert_called_once()
         
-        mock_size = Mock(spec=QSize)
-        mock_pixmap_flipped1.size.return_value = mock_size
-        mock_pixmap_flipped2.size.return_value = mock_size
+        # labelに設定される
+        mock_avatar.label.setPixmap.assert_called_once_with(mock_pixmap)
+    
+    def test_update_frame_empty_dialogs(self, mock_avatar):
+        """dialogsが空の辞書の場合のテスト"""
+        mock_avatar.dialogs = {}
         
-        mock_self.label = mock_label
-        mock_self.anime_key = "talking"
-        mock_self.anime_index = 0
-        mock_self.flip = True
-        mock_self.pixmap_dict = {
-            "talking": {
-                False: [],
-                True: [mock_pixmap_flipped1, mock_pixmap_flipped2]
-            }
-        }
-        mock_self.resize = Mock()
+        update_frame(mock_avatar)
         
-        # Act
-        update_frame(mock_self)
+        # 何も処理されない
+        assert not mock_avatar.label.setPixmap.called
+    
+    def test_update_frame_adjust_size_called_in_order(self, mock_avatar, mock_dialog, mock_pixmap):
+        """adjustSizeが正しい順序で呼ばれることを確認"""
+        call_order = []
         
-        # Assert
-        mock_label.setPixmap.assert_called_once_with(mock_pixmap_flipped1)
-        assert mock_self.anime_index == 1
-
-    def test_update_frame_increment_index(self):
-        """正常系: インデックスが途中から進む場合"""
-        # Arrange
-        mock_self = Mock()
-        mock_label = Mock(spec=QLabel)
-        mock_pixmap1 = Mock(spec=QPixmap)
-        mock_pixmap2 = Mock(spec=QPixmap)
-        mock_pixmap3 = Mock(spec=QPixmap)
+        mock_avatar.label.setPixmap.side_effect = lambda p: call_order.append('setPixmap')
+        mock_avatar.label.adjustSize.side_effect = lambda: call_order.append('label.adjustSize')
+        mock_avatar.adjustSize.side_effect = lambda: call_order.append('avatar.adjustSize')
         
-        mock_size = Mock(spec=QSize)
-        mock_pixmap2.size.return_value = mock_size
+        update_frame(mock_avatar)
         
-        mock_self.label = mock_label
-        mock_self.anime_key = "talking"
-        mock_self.anime_index = 1
-        mock_self.flip = False
-        mock_self.pixmap_dict = {
-            "talking": {
-                False: [mock_pixmap1, mock_pixmap2, mock_pixmap3],
-                True: []
-            }
-        }
-        mock_self.resize = Mock()
+        # 呼び出し順序を確認
+        assert call_order == ['setPixmap', 'label.adjustSize', 'avatar.adjustSize']
+    
+    def test_update_frame_with_different_pixmap_sizes(self, mock_avatar, mock_dialog):
+        """異なるサイズのpixmapでも正常に動作することをテスト"""
+        pixmaps = [
+            Mock(width=Mock(return_value=100), height=Mock(return_value=100)),
+            Mock(width=Mock(return_value=500), height=Mock(return_value=1000)),
+            Mock(width=Mock(return_value=1920), height=Mock(return_value=1080))
+        ]
         
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        mock_label.setPixmap.assert_called_once_with(mock_pixmap2)
-        assert mock_self.anime_index == 2
-
-    def test_update_frame_wrap_around(self):
-        """正常系: インデックスが画像リストの末尾に達したら0に戻る"""
-        # Arrange
-        mock_self = Mock()
-        mock_label = Mock(spec=QLabel)
-        mock_pixmap1 = Mock(spec=QPixmap)
-        mock_pixmap2 = Mock(spec=QPixmap)
-        mock_pixmap3 = Mock(spec=QPixmap)
-        
-        mock_size = Mock(spec=QSize)
-        mock_pixmap3.size.return_value = mock_size
-        
-        mock_self.label = mock_label
-        mock_self.anime_key = "blink"
-        mock_self.anime_index = 2  # 最後のインデックス
-        mock_self.flip = False
-        mock_self.pixmap_dict = {
-            "blink": {
-                False: [mock_pixmap1, mock_pixmap2, mock_pixmap3],
-                True: []
-            }
-        }
-        mock_self.resize = Mock()
-        
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        mock_label.setPixmap.assert_called_once_with(mock_pixmap3)
-        assert mock_self.anime_index == 0  # ラップアラウンド
-
-    def test_update_frame_single_image(self):
-        """正常系: 画像が1枚しかない場合"""
-        # Arrange
-        mock_self = Mock()
-        mock_label = Mock(spec=QLabel)
-        mock_pixmap1 = Mock(spec=QPixmap)
-        
-        mock_size = Mock(spec=QSize)
-        mock_pixmap1.size.return_value = mock_size
-        
-        mock_self.label = mock_label
-        mock_self.anime_key = "static"
-        mock_self.anime_index = 0
-        mock_self.flip = False
-        mock_self.pixmap_dict = {
-            "static": {
-                False: [mock_pixmap1],
-                True: []
-            }
-        }
-        mock_self.resize = Mock()
-        
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        mock_label.setPixmap.assert_called_once_with(mock_pixmap1)
-        assert mock_self.anime_index == 0  # 1枚なので0に戻る
-
-    def test_update_frame_no_pixmap_dict(self):
-        """異常系: pixmap_dictが存在しない場合"""
-        # Arrange
-        mock_self = Mock(spec=[])  # pixmap_dictを持たない
-        
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        # 例外が発生せず、何もしないことを確認
-        assert not hasattr(mock_self, 'pixmap_dict')
-
-    def test_update_frame_empty_pixmap_dict(self):
-        """異常系: pixmap_dictが空の場合"""
-        # Arrange
-        mock_self = Mock()
-        mock_self.pixmap_dict = {}
-        
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        # 例外が発生せず、何もしないことを確認
-        assert mock_self.pixmap_dict == {}
-
-    def test_update_frame_anime_key_not_found(self):
-        """異常系: anime_keyが存在しない場合"""
-        # Arrange
-        mock_self = Mock()
-        mock_self.pixmap_dict = {
-            "idle": {False: [], True: []}
-        }
-        mock_self.anime_key = "non_existent"
-        
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        # 例外が発生せず、何もしないことを確認
-        assert mock_self.anime_key == "non_existent"
-
-    def test_update_frame_no_label(self):
-        """異常系: labelが存在しない場合"""
-        # Arrange
-        mock_self = Mock()
-        mock_pixmap1 = Mock(spec=QPixmap)
-        
-        mock_self.anime_key = "idle"
-        mock_self.anime_index = 0
-        mock_self.flip = False
-        mock_self.pixmap_dict = {
-            "idle": {
-                False: [mock_pixmap1],
-                True: []
-            }
-        }
-        # labelを削除
-        delattr(mock_self, 'label')
-        
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        # 例外が発生せず、何もしないことを確認
-        assert not hasattr(mock_self, 'label')
-
-    def test_update_frame_empty_pixmap_list(self):
-        """異常系: 画像リストが空の場合"""
-        # Arrange
-        mock_self = Mock()
-        mock_label = Mock(spec=QLabel)
-        
-        mock_self.label = mock_label
-        mock_self.anime_key = "empty"
-        mock_self.anime_index = 0
-        mock_self.flip = False
-        mock_self.pixmap_dict = {
-            "empty": {
-                False: [],  # 空のリスト
-                True: []
-            }
-        }
-        
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        # setPixmapが呼ばれないことを確認
-        mock_label.setPixmap.assert_not_called()
-
-    def test_update_frame_no_anime_index(self):
-        """正常系: anime_indexが存在しない場合は0で初期化される"""
-        # Arrange
-        mock_self = Mock()
-        mock_label = Mock(spec=QLabel)
-        mock_pixmap1 = Mock(spec=QPixmap)
-        
-        mock_size = Mock(spec=QSize)
-        mock_pixmap1.size.return_value = mock_size
-        
-        mock_self.label = mock_label
-        mock_self.anime_key = "idle"
-        mock_self.flip = False
-        mock_self.pixmap_dict = {
-            "idle": {
-                False: [mock_pixmap1],
-                True: []
-            }
-        }
-        mock_self.resize = Mock()
-        # anime_indexを削除
-        if hasattr(mock_self, 'anime_index'):
-            delattr(mock_self, 'anime_index')
-        
-        # Act
-        update_frame(mock_self)
-        
-        # Assert
-        mock_label.setPixmap.assert_called_once_with(mock_pixmap1)
-        assert mock_self.anime_index == 0  # 初期化されて、1枚なので0に戻る
-        
+        for pixmap in pixmaps:
+            mock_dialog.get_current_pixmap.return_value = pixmap
+            update_frame(mock_avatar)
+            mock_avatar.label.setPixmap.assert_called_with(pixmap)

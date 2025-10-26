@@ -1,337 +1,258 @@
-# tests/test_service.py
+"""
+test_service.py
+mod_service.pyの単体テスト
+"""
 import pytest
-from unittest.mock import Mock, MagicMock, patch, AsyncMock
 import json
-import sys
-from pvv_mcp_server import mod_service
+from unittest.mock import patch, MagicMock, AsyncMock
+import pvv_mcp_server.mod_service
 
 
-class TestSpeakTool:
-    """speak tool関数のユニットテスト"""
-
+class TestService:
+    """mod_serviceの各ツール・リソース関数のテストクラス"""
+    
+    # ========================================
+    # speak関数のテスト
+    # ========================================
     @pytest.mark.asyncio
-    @patch('pvv_mcp_server.mod_service.mod_speak.speak')
-    async def test_speak_normal_case(self, mock_speak):
-        """正常系: デフォルトパラメータでの音声合成"""
-        # Arrange
-        style_id = 1
-        msg = "こんにちは"
+    @patch("pvv_mcp_server.mod_service.mod_speak.speak")
+    async def test_speak_success(self, mock_speak):
+        """speak関数の正常系テスト"""
+        # モックの設定
+        mock_speak.return_value = None
         
-        # Act
-        result = await mod_service.speak(style_id, msg)
-        
-        # Assert
-        mock_speak.assert_called_once_with(
-            style_id=style_id,
-            msg=msg,
+        # テスト実行
+        result = await pvv_mcp_server.mod_service.speak(
+            style_id=6,
+            msg="テストメッセージ",
             speedScale=1.0,
             pitchScale=0.0,
             intonationScale=1.0,
             volumeScale=1.0
         )
-        assert "音声合成・再生が完了しました" in result
-        assert f"style_id={style_id}" in result
-        assert f"msg='{msg}'" in result
-
-    @pytest.mark.asyncio
-    @patch('pvv_mcp_server.mod_service.mod_speak.speak')
-    async def test_speak_with_custom_parameters(self, mock_speak):
-        """正常系: カスタムパラメータでの音声合成"""
-        # Arrange
-        style_id = 2
-        msg = "テスト"
-        speed = 1.5
-        pitch = 0.3
-        intonation = 1.2
-        volume = 0.8
         
-        # Act
-        result = await mod_service.speak(
-            style_id, msg, 
-            speedScale=speed, 
-            pitchScale=pitch,
-            intonationScale=intonation,
-            volumeScale=volume
-        )
-        
-        # Assert
+        # 検証
+        assert result == "音声合成・再生が完了しました。(style_id=6)"
         mock_speak.assert_called_once_with(
-            style_id=style_id,
-            msg=msg,
-            speedScale=speed,
-            pitchScale=pitch,
-            intonationScale=intonation,
-            volumeScale=volume
+            style_id=6,
+            msg="テストメッセージ",
+            speedScale=1.0,
+            pitchScale=0.0,
+            intonationScale=1.0,
+            volumeScale=1.0
         )
-        assert "音声合成・再生が完了しました" in result
-
+    
     @pytest.mark.asyncio
-    @patch('pvv_mcp_server.mod_service.mod_speak.speak')
-    async def test_speak_error_case(self, mock_speak):
-        """異常系: mod_speak.speakでエラーが発生"""
-        # Arrange
-        style_id = 1
-        msg = "エラーテスト"
-        mock_speak.side_effect = Exception("API connection failed")
+    @patch("pvv_mcp_server.mod_service.mod_speak.speak")
+    async def test_speak_error(self, mock_speak):
+        """speak関数のエラー系テスト"""
+        # モックの設定（エラーを発生させる）
+        mock_speak.side_effect = Exception("音声合成エラー")
         
-        # Act
-        result = await mod_service.speak(style_id, msg)
+        # テスト実行
+        result = await pvv_mcp_server.mod_service.speak(
+            style_id=6,
+            msg="テストメッセージ"
+        )
         
-        # Assert
+        # 検証
         assert "エラーが発生しました" in result
-        assert "API connection failed" in result
-
-
-class TestSpeakMetanAskaTool:
-    """speak_metan_aska tool関数のユニットテスト"""
-
+        assert "音声合成エラー" in result
+    
+    # ========================================
+    # speak_metan_aska関数のテスト
+    # ========================================
     @pytest.mark.asyncio
-    @patch('pvv_mcp_server.mod_service.mod_speak_metan_aska.speak_metan_aska')
-    async def test_speak_metan_aska_normal_case(self, mock_speak_metan_aska):
-        """正常系: アスカとして発話"""
-        # Arrange
-        msg = "あんた、バカぁ！"
+    @patch("pvv_mcp_server.mod_service.speak")
+    async def test_speak_metan_aska(self, mock_speak):
+        """speak_metan_aska関数のテスト"""
+        # モックの設定
+        mock_speak.return_value = "音声合成・再生が完了しました。(style_id=6)"
         
-        # Act
-        result = await mod_service.speak_metan_aska(msg)
+        # テスト実行
+        result = await pvv_mcp_server.mod_service.speak_metan_aska("アスカのテストメッセージ")
         
-        # Assert
-        mock_speak_metan_aska.assert_called_once_with(msg)
-        assert "発話完了" in result
-        assert msg in result
-
+        # 検証
+        assert result == "音声合成・再生が完了しました。(style_id=6)"
+    
+    # ========================================
+    # speak_kurono_neko関数のテスト
+    # ========================================
     @pytest.mark.asyncio
-    @patch('pvv_mcp_server.mod_service.mod_speak_metan_aska.speak_metan_aska')
-    async def test_speak_metan_aska_error_case(self, mock_speak_metan_aska):
-        """異常系: 発話エラー"""
-        # Arrange
-        msg = "エラーテスト"
-        mock_speak_metan_aska.side_effect = Exception("Voice synthesis failed")
+    @patch("pvv_mcp_server.mod_service.speak")
+    async def test_speak_kurono_neko(self, mock_speak):
+        """speak_kurono_neko関数のテスト"""
+        # モックの設定
+        mock_speak.return_value = "音声合成・再生が完了しました。(style_id=11)"
         
-        # Act
-        result = await mod_service.speak_metan_aska(msg)
+        # テスト実行
+        result = await pvv_mcp_server.mod_service.speak_kurono_neko("ネコのテストメッセージ")
         
-        # Assert
-        assert "エラー" in result
-        assert "Voice synthesis failed" in result
-
-
-class TestSpeakersResource:
-    """speakers resource関数のユニットテスト"""
-
-    @patch('pvv_mcp_server.mod_service.mod_speakers.speakers')
-    def test_speakers_normal_case(self, mock_speakers):
-        """正常系: 話者一覧の取得"""
-        # Arrange
-        mock_speakers.return_value = [
-            {"name": "四国めたん", "speaker_uuid": "uuid1"},
-            {"name": "ずんだもん", "speaker_uuid": "uuid2"}
-        ]
+        # 検証
+        assert result == "音声合成・再生が完了しました。(style_id=11)"
+    
+    # ========================================
+    # emotion関数のテスト
+    # ========================================
+    @pytest.mark.asyncio
+    @patch("pvv_mcp_server.mod_service._avatar_enbled", True)
+    @patch("pvv_mcp_server.mod_service.mod_emotion.emotion")
+    async def test_emotion_success(self, mock_emotion):
+        """emotion関数の正常系テスト"""
+        # モックの設定
+        mock_emotion.return_value = None
         
-        # Act
-        result = mod_service.speakers()
+        # テスト実行
+        result = await pvv_mcp_server.mod_service.emotion(style_id=6, emo="えがお")
         
-        # Assert
+        # 検証
+        assert result == "感情表現完了: えがお"
+        mock_emotion.assert_called_once_with(6, "えがお")
+    
+    @pytest.mark.asyncio
+    @patch("pvv_mcp_server.mod_service._avatar_enbled", True)
+    async def test_emotion_invalid_emotion(self):
+        """emotion関数の不正な感情指定テスト"""
+        # テスト実行
+        result = await pvv_mcp_server.mod_service.emotion(style_id=6, emo="不正な感情")
+        
+        # 検証
+        print("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
+        print(result)
+        assert "エラー: emo は" in result
+    
+    @pytest.mark.asyncio
+    @patch("pvv_mcp_server.mod_service._avatar_enbled", False)
+    async def test_emotion_disabled(self):
+        """アバター無効時のemotion関数テスト"""
+        # テスト実行
+        result = await pvv_mcp_server.mod_service.emotion(style_id=6, emo="えがお")
+        
+        # 検証
+        assert result == "avatar disabled."
+    
+    # ========================================
+    # リソース関数のテスト
+    # ========================================
+    @patch("pvv_mcp_server.mod_service.mod_speakers.speakers")
+    def test_resource_speakers_success(self, mock_speakers):
+        """resource_speakers関数の正常系テスト"""
+        # モックの設定
+        mock_data = [{"name": "四国めたん", "speaker_uuid": "test-uuid"}]
+        mock_speakers.return_value = json.dumps(mock_data).encode("utf-8")
+        
+        # テスト実行
+        result =pvv_mcp_server.mod_service.resource_speakers()
+        
+        # 検証
+        assert result == json.dumps(mock_data).encode("utf-8")
         mock_speakers.assert_called_once()
-        data = json.loads(result)
-        assert len(data) == 2
-        assert data[0]["name"] == "四国めたん"
-        assert data[1]["name"] == "ずんだもん"
-
-    @patch('pvv_mcp_server.mod_service.mod_speakers.speakers')
-    def test_speakers_empty_list(self, mock_speakers):
-        """正常系: 話者が空の場合"""
-        # Arrange
-        mock_speakers.return_value = []
+    
+    @patch("pvv_mcp_server.mod_service.mod_speakers.speakers")
+    def test_resource_speakers_error(self, mock_speakers):
+        """resource_speakers関数のエラー系テスト"""
+        # モックの設定（エラーを発生させる）
+        mock_speakers.side_effect = Exception("API接続エラー")
         
-        # Act
-        result = mod_service.speakers()
+        # テスト実行
+        result =pvv_mcp_server.mod_service.resource_speakers()
         
-        # Assert
-        data = json.loads(result)
-        assert data == []
-
-    @patch('pvv_mcp_server.mod_service.mod_speakers.speakers')
-    def test_speakers_error_case(self, mock_speakers):
-        """異常系: 話者一覧取得エラー"""
-        # Arrange
-        mock_speakers.side_effect = Exception("API error")
-        
-        # Act
-        result = mod_service.speakers()
-        
-        # Assert
+        # 検証
         assert "エラー" in result
-        assert "API error" in result
-
-
-class TestSpeakerInfoResource:
-    """speaker_info resource関数のユニットテスト"""
-
-    @patch('pvv_mcp_server.mod_service.mod_speaker_info.speaker_info')
-    def test_speaker_info_normal_case(self, mock_speaker_info):
-        """正常系: 話者情報の取得"""
-        # Arrange
-        speaker_id = "四国めたん"
-        mock_speaker_info.return_value = {
-            "name": "四国めたん",
-            "speaker_uuid": "uuid1",
-            "styles": [
-                {"name": "ノーマル", "id": 2}
-            ]
+        assert "API接続エラー" in result
+    
+    @patch("pvv_mcp_server.mod_service.mod_speaker_info.speaker_info")
+    def test_resource_speaker_info_success(self, mock_speaker_info):
+        """resource_speaker_info関数の正常系テスト"""
+        # モックの設定
+        mock_data = {
+            "policy": "test_policy",
+            "portrait": "test_url"
         }
+        mock_speaker_info.return_value = mock_data
         
-        # Act
-        result = mod_service.speaker_info(speaker_id)
+        # テスト実行
+        result =pvv_mcp_server.mod_service.resource_speaker_info("四国めたん")
         
-        # Assert
-        mock_speaker_info.assert_called_once_with(speaker_id)
-        data = json.loads(result)
-        assert data["name"] == "四国めたん"
-        assert len(data["styles"]) == 1
-
-    @patch('pvv_mcp_server.mod_service.mod_speaker_info.speaker_info')
-    def test_speaker_info_by_uuid(self, mock_speaker_info):
-        """正常系: UUIDで話者情報を取得"""
-        # Arrange
-        speaker_uuid = "uuid123"
-        mock_speaker_info.return_value = {
-            "name": "ずんだもん",
-            "speaker_uuid": speaker_uuid
-        }
+        # 検証
+        result_dict = json.loads(result)
+        assert result_dict == mock_data
+        mock_speaker_info.assert_called_once_with("四国めたん")
+    
+    @patch("pvv_mcp_server.mod_service.mod_speaker_info.speaker_info")
+    def test_resource_speaker_info_error(self, mock_speaker_info):
+        """resource_speaker_info関数のエラー系テスト"""
+        # モックの設定（エラーを発生させる）
+        mock_speaker_info.side_effect = ValueError("話者が見つかりません")
         
-        # Act
-        result = mod_service.speaker_info(speaker_uuid)
+        # テスト実行
+        result =pvv_mcp_server.mod_service.resource_speaker_info("存在しない話者")
         
-        # Assert
-        mock_speaker_info.assert_called_once_with(speaker_uuid)
-        data = json.loads(result)
-        assert data["speaker_uuid"] == speaker_uuid
-
-    @patch('pvv_mcp_server.mod_service.mod_speaker_info.speaker_info')
-    def test_speaker_info_error_case(self, mock_speaker_info):
-        """異常系: 話者情報取得エラー"""
-        # Arrange
-        speaker_id = "存在しない話者"
-        mock_speaker_info.side_effect = Exception("Speaker not found")
-        
-        # Act
-        result = mod_service.speaker_info(speaker_id)
-        
-        # Assert
+        # 検証
         assert "エラー" in result
-        assert "Speaker not found" in result
-
-
-class TestStartFunctions:
-    """start関数群のユニットテスト"""
-
-    @patch('pvv_mcp_server.mod_service.start_mcp_avatar')
-    @patch('pvv_mcp_server.mod_service.start_mcp_avatar_disabled')
-    def test_start_with_avatar_enabled(self, mock_disabled, mock_enabled):
-        """正常系: アバター有効で起動"""
-        # Arrange
-        conf = {
-            "avatar": {
-                "enabled": True,
-                "image_path": "/path/to/image"
-            }
-        }
+        assert "話者が見つかりません" in result
+    
+    # ========================================
+    # プロンプト関数のテスト
+    # ========================================
+    def test_resource_ai_aska(self):
+        """resource_ai_aska関数のテスト"""
+        # テスト実行
+        result =pvv_mcp_server.mod_service.resource_ai_aska()
         
-        # Act
-        mod_service.start(conf)
+        # 検証
+        assert "アスカ" in result
+        assert "AIペルソナ" in result
+        assert "音声会話仕様" in result
+    
+    def test_prompt_ai_aska(self):
+        """prompt_ai_aska関数のテスト"""
+        # テスト実行
+        result =pvv_mcp_server.mod_service.prompt_ai_aska()
         
-        # Assert
-        mock_enabled.assert_called_once_with(conf["avatar"])
-        mock_disabled.assert_not_called()
-
-    @patch('pvv_mcp_server.mod_service.start_mcp_avatar')
-    @patch('pvv_mcp_server.mod_service.start_mcp_avatar_disabled')
-    def test_start_with_avatar_disabled(self, mock_disabled, mock_enabled):
-        """正常系: アバター無効で起動"""
-        # Arrange
-        conf = {
-            "avatar": {
-                "enabled": False
-            }
-        }
+        # 検証
+        assert result ==pvv_mcp_server.mod_service.PROMPT_ASKA_TEXT
+        assert "アスカ" in result
+    
+    def test_resource_ai_touhou(self):
+        """resource_ai_touhou関数のテスト"""
+        # テスト実行
+        result =pvv_mcp_server.mod_service.resource_ai_touhou()
         
-        # Act
-        mod_service.start(conf)
+        # 検証
+        assert "霊夢" in result or "魔理沙" in result
+        assert "AIペルソナ" in result
+    
+    def test_prompt_ai_touhou(self):
+        """prompt_ai_touhou関数のテスト"""
+        # テスト実行
+        result =pvv_mcp_server.mod_service.prompt_ai_touhou()
         
-        # Assert
-        mock_disabled.assert_called_once_with(conf["avatar"])
-        mock_enabled.assert_not_called()
-
-    @patch('pvv_mcp_server.mod_service.start_mcp_avatar')
-    @patch('pvv_mcp_server.mod_service.start_mcp_avatar_disabled')
-    def test_start_without_avatar_config(self, mock_disabled, mock_enabled):
-        """正常系: avatar設定なしで起動"""
-        # Arrange
-        conf = {}
+        # 検証
+        assert result ==pvv_mcp_server.mod_service.PROMPT_TOUHOU_TEXT
+        assert "霊夢" in result or "魔理沙" in result
+    
+    # ========================================
+    # start関数のテスト
+    # ========================================
+    @patch("pvv_mcp_server.mod_service.start_mcp")
+    def test_start_without_avatar(self, mock_start_mcp):
+        """アバター無効時のstart関数テスト"""
+        # テスト実行
+        test_conf = {"avatar": {"enabled": False}}
+        pvv_mcp_server.mod_service.start(test_conf)
         
-        # Act
-        mod_service.start(conf)
+        # 検証
+        mock_start_mcp.assert_called_once_with(test_conf)
+        assert pvv_mcp_server.mod_service._avatar_enbled is False
+    
+    @patch("pvv_mcp_server.mod_service.start_mcp_avatar")
+    def test_start_with_avatar(self, mock_start_mcp_avatar):
+        """アバター有効時のstart関数テスト"""
+        # テスト実行
+        test_conf = {"avatar": {"enabled": True}}
+        pvv_mcp_server.mod_service.start(test_conf)
         
-        # Assert
-        # avatar設定がない場合、get()でNoneが返るのでdisabledが呼ばれる
-        mock_disabled.assert_called_once()
-
-    @patch('pvv_mcp_server.mod_service.pvv_mcp_server.mod_avatar_manager.setup')
-    @patch('pvv_mcp_server.mod_service.mcp.run')
-    def test_start_mcp_avatar_disabled(self, mock_mcp_run, mock_setup):
-        """正常系: start_mcp_avatar_disabled関数のテスト"""
-        # Arrange
-        conf = {"enabled": False}
-        
-        # Act
-        mod_service.start_mcp_avatar_disabled(conf)
-        
-        # Assert
-        mock_setup.assert_called_once_with(conf)
-        mock_mcp_run.assert_called_once_with(transport="stdio")
-
-    @patch('pvv_mcp_server.mod_service.mcp.run')
-    def test_start_mcp(self, mock_mcp_run):
-        """正常系: start_mcp関数のテスト"""
-        # Arrange
-        conf = {"test": "config"}
-        
-        # Act
-        mod_service.start_mcp(conf)
-        
-        # Assert
-        mock_mcp_run.assert_called_once_with(transport="stdio")
-
-    @patch('pvv_mcp_server.mod_service.QApplication')
-    @patch('pvv_mcp_server.mod_service.pvv_mcp_server.mod_avatar_manager.setup')
-    @patch('pvv_mcp_server.mod_service.Thread')
-    @patch('pvv_mcp_server.mod_service.sys.exit')
-    def test_start_mcp_avatar(self, mock_exit, mock_thread, mock_setup, mock_qapp):
-        """正常系: start_mcp_avatar関数のテスト"""
-        # Arrange
-        conf = {"enabled": True}
-        mock_app_instance = Mock()
-        mock_qapp.return_value = mock_app_instance
-        mock_app_instance.exec.return_value = 0
-        
-        # Act
-        mod_service.start_mcp_avatar(conf)
-        
-        # Assert
-        # スレッドが起動される
-        mock_thread.assert_called_once()
-        thread_call = mock_thread.call_args
-        assert thread_call[1]["target"] == mod_service.start_mcp
-        assert thread_call[1]["args"] == (conf,)
-        assert thread_call[1]["daemon"] is True
-        
-        # QApplicationが作成される
-        mock_qapp.assert_called_once()
-        
-        # アバターマネージャがセットアップされる
-        mock_setup.assert_called_once_with(conf)
-        
-        # アプリケーションが実行される
-        mock_app_instance.exec.assert_called_once()
-        mock_exit.assert_called_once_with(0)
+        # 検証
+        mock_start_mcp_avatar.assert_called_once()
+        assert pvv_mcp_server.mod_service._avatar_enbled is True

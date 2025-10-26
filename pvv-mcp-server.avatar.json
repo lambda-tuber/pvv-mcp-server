@@ -1,0 +1,2364 @@
+{
+  "{\"\\u4f4d\\u7f6e\": \"left_in\", \"\\u53cd\\u8ee2\": false, \"\\u753b\\u50cf\": \"portrait\", \"\\u7e2e\\u5c3a\": 75, \"\\u8868\\u793a\": true, \"\\u8a71\\u8005\": \"\\u96e8\\u6674\\u306f\\u3046\"}": {
+    "zip_path": "portrait",
+    "app_title": "Claude",
+    "position": "left_in",
+    "flip": false,
+    "scale": 75,
+    "anime_types": [
+      "立ち絵",
+      "口パク",
+      "えがお",
+      "びっくり",
+      "がーん",
+      "いかり"
+    ],
+    "frame_timer_interval": 50,
+    "follow_timer_interval": 150,
+    "dialogs": {
+      "立ち絵": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "口パク": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "えがお": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "びっくり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "がーん": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "いかり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      }
+    }
+  },
+  "{\"\\u4f4d\\u7f6e\": \"right_in\", \"\\u53cd\\u8ee2\": false, \"\\u753b\\u50cf\": \"portrait\", \"\\u7e2e\\u5c3a\": 75, \"\\u8868\\u793a\": true, \"\\u8a71\\u8005\": \"\\u51a5\\u9cf4\\u3072\\u307e\\u308a\"}": {
+    "zip_path": "portrait",
+    "app_title": "Claude",
+    "position": "right_in",
+    "flip": false,
+    "scale": 75,
+    "anime_types": [
+      "立ち絵",
+      "口パク",
+      "えがお",
+      "びっくり",
+      "がーん",
+      "いかり"
+    ],
+    "frame_timer_interval": 50,
+    "follow_timer_interval": 150,
+    "dialogs": {
+      "立ち絵": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "口パク": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "えがお": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "びっくり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "がーん": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "いかり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "portrait.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      }
+    }
+  },
+  "{\"\\u4f4d\\u7f6e\": \"right_in\", \"\\u53cd\\u8ee2\": false, \"\\u753b\\u50cf\": \"http://nicotalk.com/sozai/\\u3086\\u3063\\u304f\\u308a\\u30ad\\u30e3\\u30e9\\u7d20\\u6750/\\u3086\\u3063\\u304f\\u308a\\u970a\\u5922\\u6539.zip\", \"\\u7e2e\\u5c3a\": 50, \"\\u8868\\u793a\": true, \"\\u8a71\\u8005\": \"\\u6625\\u65e5\\u90e8\\u3064\\u3080\\u304e\"}": {
+    "zip_path": "http://nicotalk.com/sozai/ゆっくりキャラ素材/ゆっくり霊夢改.zip",
+    "app_title": "Claude",
+    "position": "right_in",
+    "flip": false,
+    "scale": 50,
+    "anime_types": [
+      "立ち絵",
+      "口パク",
+      "えがお",
+      "びっくり",
+      "がーん",
+      "いかり"
+    ],
+    "frame_timer_interval": 50,
+    "follow_timer_interval": 150,
+    "dialogs": {
+      "立ち絵": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "05a.png",
+            "selected_files": [
+              "00a.png",
+              "01a.png",
+              "02a.png",
+              "05a.png"
+            ],
+            "interval": 3,
+            "anime_type": "ランダムB"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "00.png",
+            "selected_files": [
+              "00.png",
+              "00c.png"
+            ],
+            "interval": 2,
+            "anime_type": "ランダムA"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "01.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "口パク": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "00a.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "00.png",
+            "selected_files": [
+              "00.png",
+              "00b.png"
+            ],
+            "interval": 2,
+            "anime_type": "ループ"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "01.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "えがお": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "00a.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "07.png",
+            "selected_files": [
+              "07.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "02.png",
+            "selected_files": [
+              "02.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "01.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "びっくり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "06b.png",
+            "selected_files": [
+              "06b.png"
+            ],
+            "interval": 1,
+            "anime_type": "ワンショット"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "03.png",
+            "selected_files": [
+              "03.png"
+            ],
+            "interval": 1,
+            "anime_type": "ワンショット"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "32.png",
+            "selected_files": [
+              "32.png"
+            ],
+            "interval": 1,
+            "anime_type": "ワンショット"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "01.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "がーん": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "07b.png",
+            "selected_files": [
+              "07b.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "20.png",
+            "selected_files": [
+              "20.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "06.png",
+            "selected_files": [
+              "06.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "01.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "いかり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "08b.png",
+            "selected_files": [
+              "08b.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "17.png",
+            "selected_files": [
+              "17.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "08.png",
+            "selected_files": [
+              "08.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "01.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      }
+    }
+  },
+  "{\"\\u4f4d\\u7f6e\": \"left_in\", \"\\u53cd\\u8ee2\": false, \"\\u753b\\u50cf\": \"http://nicotalk.com/sozai/\\u3086\\u3063\\u304f\\u308a\\u30ad\\u30e3\\u30e9\\u7d20\\u6750/\\u3086\\u3063\\u304f\\u308a\\u9b54\\u7406\\u6c99\\u6539.zip\", \"\\u7e2e\\u5c3a\": 50, \"\\u8868\\u793a\": true, \"\\u8a71\\u8005\": \"\\u305a\\u3093\\u3060\\u3082\\u3093\"}": {
+    "zip_path": "http://nicotalk.com/sozai/ゆっくりキャラ素材/ゆっくり魔理沙改.zip",
+    "app_title": "Claude",
+    "position": "left_in",
+    "flip": false,
+    "scale": 50,
+    "anime_types": [
+      "立ち絵",
+      "口パク",
+      "えがお",
+      "びっくり",
+      "がーん",
+      "いかり"
+    ],
+    "frame_timer_interval": 50,
+    "follow_timer_interval": 150,
+    "dialogs": {
+      "立ち絵": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "01a.png",
+            "selected_files": [
+              "01a.png",
+              "02a.png"
+            ],
+            "interval": 3,
+            "anime_type": "ランダムB"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "00.png",
+            "selected_files": [
+              "00.png",
+              "00e.png"
+            ],
+            "interval": 3,
+            "anime_type": "ランダムA"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "口パク": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "01a.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "00e.png",
+            "selected_files": [
+              "00.png",
+              "00e.png"
+            ],
+            "interval": 2,
+            "anime_type": "ループ"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "えがお": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "01a.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "10.png",
+            "selected_files": [
+              "10.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "びっくり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "02a.png",
+            "selected_files": [
+              "02a.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "14.png",
+            "selected_files": [
+              "14.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "20.png",
+            "selected_files": [
+              "20.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "がーん": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "04b.png",
+            "selected_files": [
+              "04b.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "12.png",
+            "selected_files": [
+              "12.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "01.png",
+            "selected_files": [
+              "01.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "いかり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": "00.png",
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": "05b.png",
+            "selected_files": [
+              "05b.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": "24.png",
+            "selected_files": [
+              "24.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": "22.png",
+            "selected_files": [
+              "22.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      }
+    }
+  },
+  "{\"\\u4f4d\\u7f6e\": \"right_center\", \"\\u53cd\\u8ee2\": false, \"\\u753b\\u50cf\": \"C:\\\\work\\\\lambda-tuber\\\\ai-trial\\\\mission16\\\\docs\\\\josei_20_pw.zip\", \"\\u7e2e\\u5c3a\": 50, \"\\u8868\\u793a\": true, \"\\u8a71\\u8005\": \"\\u56db\\u56fd\\u3081\\u305f\\u3093\"}": {
+    "zip_path": "C:\\work\\lambda-tuber\\ai-trial\\mission16\\docs\\josei_20_pw.zip",
+    "app_title": "Claude",
+    "position": "right_center",
+    "flip": false,
+    "scale": 50,
+    "anime_types": [
+      "立ち絵",
+      "口パク",
+      "えがお",
+      "びっくり",
+      "がーん",
+      "いかり"
+    ],
+    "frame_timer_interval": 50,
+    "follow_timer_interval": 150,
+    "dialogs": {
+      "立ち絵": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "josei_20_a.png",
+            "selected_files": [
+              "josei_20_h.png"
+            ],
+            "interval": 1,
+            "anime_type": "ランダムA"
+          }
+        }
+      },
+      "口パク": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "josei_20_a.png",
+            "selected_files": [
+              "josei_20_a.png",
+              "josei_20_b.png"
+            ],
+            "interval": 1,
+            "anime_type": "ループ"
+          }
+        }
+      },
+      "えがお": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "josei_20_g.png",
+            "selected_files": [
+              "josei_20_g.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "びっくり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "josei_20_e.png",
+            "selected_files": [
+              "josei_20_e.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "がーん": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "josei_20_d.png",
+            "selected_files": [
+              "josei_20_d.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "いかり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "josei_20_c.png",
+            "selected_files": [
+              "josei_20_c.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          }
+        }
+      }
+    }
+  },
+  "{\"\\u4f4d\\u7f6e\": \"left_center\", \"\\u53cd\\u8ee2\": true, \"\\u753b\\u50cf\": \"C:\\\\work\\\\lambda-tuber\\\\ai-trial\\\\mission16\\\\docs\\\\animal_01_neko\", \"\\u7e2e\\u5c3a\": 50, \"\\u8868\\u793a\": true, \"\\u8a71\\u8005\": \"\\u7384\\u91ce\\u6b66\\u5b8f\"}": {
+    "zip_path": "C:\\work\\lambda-tuber\\ai-trial\\mission16\\docs\\animal_01_neko",
+    "app_title": "Claude",
+    "position": "left_center",
+    "flip": true,
+    "scale": 50,
+    "anime_types": [
+      "立ち絵",
+      "口パク",
+      "えがお",
+      "びっくり",
+      "がーん",
+      "いかり"
+    ],
+    "frame_timer_interval": 50,
+    "follow_timer_interval": 150,
+    "dialogs": {
+      "立ち絵": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "animal_01_g.png",
+            "selected_files": [
+              "animal_01_e.png"
+            ],
+            "interval": 2,
+            "anime_type": "ランダムA"
+          }
+        }
+      },
+      "口パク": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "animal_01_h.png",
+            "selected_files": [
+              "animal_01_g.png",
+              "animal_01_h.png"
+            ],
+            "interval": 2,
+            "anime_type": "ループ"
+          }
+        }
+      },
+      "えがお": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "animal_01_f.png",
+            "selected_files": [
+              "animal_01_f.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "びっくり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "animal_01_h.png",
+            "selected_files": [
+              "animal_01_h.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "がーん": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "animal_01_d.png",
+            "selected_files": [
+              "animal_01_d.png"
+            ],
+            "interval": 10,
+            "anime_type": "固定"
+          }
+        }
+      },
+      "いかり": {
+        "parts": {
+          "後": {
+            "part_name": "後",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "体": {
+            "part_name": "体",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "顔": {
+            "part_name": "顔",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "髪": {
+            "part_name": "髪",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "口": {
+            "part_name": "口",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "目": {
+            "part_name": "目",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "眉": {
+            "part_name": "眉",
+            "base_image": null,
+            "selected_files": [],
+            "interval": 3,
+            "anime_type": "固定"
+          },
+          "他": {
+            "part_name": "他",
+            "base_image": "animal_01_i.png",
+            "selected_files": [
+              "animal_01_i.png"
+            ],
+            "interval": 3,
+            "anime_type": "固定"
+          }
+        }
+      }
+    }
+  }
+}

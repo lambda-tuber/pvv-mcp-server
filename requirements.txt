@@ -11,3 +11,7 @@ pytest-trio
 PySide6
 pygetwindow
 pyyaml
+Pillow
+imageio[ffmpeg]
+moviepy
+pydub

@@ -12,19 +12,18 @@ import io
 import pvv_mcp_server.mod_avatar_manager
 import logging
 import sys
+import re
+import time
 
 # ロガーの設定
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
-# stderrへの出力ハンドラー
-if not logger.handlers:
-    handler = logging.StreamHandler(sys.stderr)
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
 
+def remove_bracket_text(text: str) -> str:
+    # 丸括弧の中身を削除（全角・半角の両方対応）
+    text = re.sub(r'（.*?）', '', text)  # 全角括弧
+    text = re.sub(r'\(.*?\)', '', text)  # 半角括弧
+    return text.strip()
 
 def speak(
     style_id: int,
@@ -49,21 +48,20 @@ def speak(
         requests.exceptions.RequestException: API通信エラー
         Exception: 音声再生エラー
     """
-    
+
     # VOICEVOX APIのエンドポイント
-    BASE_URL = "http://localhost:50021"
+    BASE_URL = "http://127.0.0.1:50021"
 
     try:
         # 1. 音声合成用のクエリを生成
         query_params = {
-            "text": msg,
+            "text": remove_bracket_text(msg),
             "speaker": style_id
         }
         
         query_response = requests.post(
             f"{BASE_URL}/audio_query",
-            params=query_params,
-            timeout=10
+            params=query_params
         )
         query_response.raise_for_status()
         query_data = query_response.json()
@@ -73,7 +71,7 @@ def speak(
         query_data["pitchScale"] = pitchScale
         query_data["intonationScale"] = intonationScale
         query_data["volumeScale"] = volumeScale
-        
+
         # 3. 音声合成を実行
         synthesis_params = {
             "speaker": style_id
@@ -82,8 +80,7 @@ def speak(
         synthesis_response = requests.post(
             f"{BASE_URL}/synthesis",
             params=synthesis_params,
-            json=query_data,
-            timeout=30
+            json=query_data
         )
         synthesis_response.raise_for_status()
         
@@ -91,7 +88,7 @@ def speak(
         raise Exception(f"VOICEVOX API通信エラー: {e}")
 
     try:
-        pvv_mcp_server.mod_avatar_manager.set_anime_key(style_id, "口パク")
+        pvv_mcp_server.mod_avatar_manager.set_anime_type(style_id, "口パク")
         audio_data, samplerate = sf.read(io.BytesIO(synthesis_response.content), dtype='float32', always_2d=True)
         with sd.OutputStream(samplerate=samplerate, channels=audio_data.shape[1], dtype='float32') as stream:
             stream.write(audio_data)
@@ -100,4 +97,4 @@ def speak(
         raise Exception(f"音声再生エラー: {e}")
 
     finally:
-        pvv_mcp_server.mod_avatar_manager.set_anime_key(style_id, "立ち絵")
+        pvv_mcp_server.mod_avatar_manager.set_anime_type(style_id, "立ち絵")

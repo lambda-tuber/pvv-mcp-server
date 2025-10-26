@@ -1,139 +1,308 @@
 import sys
-from PySide6.QtWidgets import QApplication, QWidget, QLabel
-from PySide6.QtCore import Qt, QTimer, QPoint
-from PySide6.QtGui import QPixmap, QTransform, QShortcut, QKeySequence
-import pygetwindow as gw
-import os
-#import ctypes
-#user32 = ctypes.windll.user32
-#user32.SetProcessDPIAware()  # Pythonプロセス自体を DPI 対応
-
-import pvv_mcp_server.avatar.mod_load_pixmaps
-import pvv_mcp_server.avatar.mod_update_frame
+from PySide6.QtWidgets import QWidget, QLabel, QApplication
+from PySide6.QtCore import Qt, QTimer, QPoint, Slot
+from PySide6.QtGui import QPixmap, QShortcut, QKeySequence
+from pvv_mcp_server.avatar.mod_load_image import load_image
+from pvv_mcp_server.avatar.mod_update_frame import update_frame
+from pvv_mcp_server.avatar.mod_right_click_context_menu import right_click_context_menu
+from pvv_mcp_server.avatar.mod_avatar_dialog import AvatarDialog
 import pvv_mcp_server.avatar.mod_update_position
-import pvv_mcp_server.avatar.mod_right_click_context_menu
+import logging
+
+# ロガーの設定
+logger = logging.getLogger(__name__)
+
 
 class AvatarWindow(QWidget):
-    def __init__(self, image_dict, default_anime_key, flip=False, scale_percent=50, app_title="Claude", position="right_out"):
+    """YMMアバター表示ウィンドウ"""
+    
+    def __init__(self, style_id, speaker_name, zip_path=None,
+                 app_title="Claude", anime_types=None, flip=False,
+                 scale_percent=100, position="right_out", config=None):
+        """
+        コンストラクタ
+        
+        Args:
+            zip_path: YMM立ち絵ZIPファイルのパス
+            app_title: 追随対象アプリケーションのウィンドウタイトル
+            anime_types: アニメーションタイプのリスト (例: ["stand", "mouth"])
+            flip: 左右反転フラグ
+            scale_percent: 縮尺パーセント
+            position: 表示位置 (left_out, left_in, right_in, right_out)
+        """
+        logger.info(f"AvatarDialog.__init__ 開始: config={config is not None}")
         super().__init__()
+        
+        # 基本設定
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool)
         self.setAttribute(Qt.WA_TranslucentBackground)
-
-        #QShortcut(QKeySequence("Escape"), self, QApplication.quit)
+        
+        # Escキーで非表示
         QShortcut(QKeySequence("Escape"), self, self.hide)
-
+        #QShortcut(QKeySequence("Escape"), self, QApplication.quit)
+        
+        # UI初期化
         self.label = QLabel(self)
         self.label.setAlignment(Qt.AlignCenter)
-
-        self.image_dict = image_dict
-        self.anime_key = default_anime_key
-        self.anime_index = 0
-        self.scale_percent = scale_percent
+        
+        # メンバ変数初期化
+        self.style_id = style_id
+        self.speaker_name = speaker_name
+        self.zip_path = zip_path
         self.app_title = app_title
-        self.position = position
-        self.flip = flip  # 左右反転フラグ
+        self.position = position  # 表示位置: left_out, left_in, right_in, right_out
+        self.flip = flip  # 左右反転
+        self.scale_percent = scale_percent  # 縮尺パーセント
+        self.anime_types = anime_types or ["立ち絵", "口パク"]
+        self.frame_timer_interval = 50
+        self.follow_timer_interval = 150
+        
+        # zip読み込み
+        self.zip_data = load_image(self.zip_path,  self.speaker_name)  # [パーツ][PNGファイル[バイナリデータ]
 
-        # ここで pixmap の辞書を作る
-        self.pixmap_dict = self.load_pixmaps(image_dict, scale_percent)
+        # アニメーション設定
+        self.anime_types = anime_types or ["立ち絵", "口パク"]
+        self.anime_type = anime_types[0] if anime_types else "立ち絵"  # 現在のアニメーションタイプ
+        
+        # YMMダイアログ管理
+        self.dialogs = {}
+        for anime_type in self.anime_types:
+            conf = None
+            if config and "dialogs" in config and anime_type in config["dialogs"]:
+                conf = config["dialogs"][anime_type]
+            
+            dialog = AvatarDialog(self, self.zip_data, self.scale_percent, self.flip, self.frame_timer_interval, conf)
+            dialog.setWindowTitle(f"pvv-mcp-server - {self.speaker_name} - {anime_type} ダイアログ")
+            self.dialogs[anime_type] = dialog
+            # ★ 初回show→hideで初期化(ウィンドウマネージャーに登録)
+            #dialog.show()
+            #QApplication.processEvents()  # イベント処理を強制
+            #dialog.hide()
 
         # 初期表示
-        self.update_frame()
-
-        # タイマー
-        self.frame_timer_interval = 150
+        update_frame(self)
+        self.update_position()
+        
+        # タイマー設定
         self.frame_timer = QTimer()
-        self.frame_timer.timeout.connect(self.update_frame)
+        self.frame_timer.timeout.connect(lambda: update_frame(self))
         self.frame_timer.start(self.frame_timer_interval)
-
-        self.follow_timer_interval = 150
+        
         self.follow_timer = QTimer()
-        self.follow_timer.timeout.connect(self.update_position)
+        self.follow_timer.timeout.connect(lambda: self.update_position())
         self.follow_timer.start(self.follow_timer_interval)
-
-        # マウスドラッグ
-        self._drag_pos = None  # ドラッグ開始位置
-
+        
+        # ドラッグ用変数
+        self._drag_pos = None
+        
         # 右クリックメニューを有効化
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.right_click_context_menu)
+        logger.info(f"AvatarDialog.__init__ 完了")
 
 
-    # 右クリックメニュー
-    def right_click_context_menu(self, position: QPoint) -> None:
-        pvv_mcp_server.avatar.mod_right_click_context_menu.right_click_context_menu(self, position)
+    #
+    #  save/load confg
+    #
+    def save_config(self):
+        """
+        設定を辞書形式で返す
+        
+        Returns:
+            dict: 設定辞書
+        """
+        self.frame_timer.stop()
+
+        config = {
+            "zip_path": self.zip_path,
+            "app_title": self.app_title,
+            "position": self.position,
+            "flip": self.flip,
+            "scale": self.scale_percent,
+            "anime_types": self.anime_types,
+            "frame_timer_interval": self.frame_timer_interval,
+            "follow_timer_interval": self.follow_timer_interval,
+            "dialogs" : {}
+        }
+
+        for animetype, dialog in self.dialogs.items():
+            conf = dialog.save_config()
+            config["dialogs"][animetype] = conf
+        
+        logger.info(f"save_config [AvatarWindow]: {config}")
+        
+        self.frame_timer.start(self.frame_timer_interval)
+
+        return config
+
+
+    def load_config(self, config):
+        """
+        設定辞書から設定を読み込む
+        
+        Args:
+            config: save_config()で保存した辞書
+        """
+        logger.info(f"load_config [AvatarWindow]")
+        
+        self.frame_timer.stop()
+
+        if "zip_path" in config:
+            self.zip_path = config["zip_path"]
+            logger.info(f"  zip_path: {config['zip_path']}")
+
+        if "app_title" in config:
+            self.app_title = config["app_title"]
+            logger.info(f"  app_title: {config['app_title']}")
+
+        if "position" in config:
+            self.set_position(config["position"])
+            logger.info(f"  position: {config['position']}")
+
+        if "flip" in config:
+            self.set_flip(config["flip"])
+            logger.info(f"  flip: {config['flip']}")
+
+        if "scale" in config:
+            self.set_scale(config["scale"])
+            logger.info(f"  scale: {config['scale']}")
+        
+        if "anime_types" in config:
+            self.anime_types = config["anime_types"]
+            logger.info(f"  anime_types: {config['anime_types']}")
+        
+        if "frame_timer_interval" in config:
+            self.set_frame_timer_interval(config["frame_timer_interval"])
+            logger.info(f"  frame_timer_interval: {config['frame_timer_interval']}")
+        
+        if "follow_timer_interval" in config:
+            self.follow_timer_interval = config["follow_timer_interval"]
+            logger.info(f"  follow_timer_interval: {config['follow_timer_interval']}")
+        
+
+        if "dialogs" in config:
+            for anitype, dialog_config in config["dialogs"].items():
+                if anitype in self.dialogs:
+                    logger.info(f"  loading dialog: {anitype}")
+                    self.dialogs[anitype].load_config(dialog_config)
+                else:
+                    logger.warning(f"  unknown dialog: {anitype}")
+
+        self.frame_timer.start(self.frame_timer_interval)
+
+    #
+    # GUI
+    #
+    def update_position(self):
+        # Claude ウィンドウに追従
+        pvv_mcp_server.avatar.mod_update_position.update_position(self)
         return
 
-    # マウス押下時にドラッグ開始位置を記録
+    def show(self):
+        """show()をオーバーライドしてログ出力"""
+        logger.info(f"AvatarDialog.show() called. title={self.windowTitle()}")
+        super().show()
+        logger.info(f"AvatarDialog.show() completed. isVisible={self.isVisible()}")
+
+    @Slot()
+    def showWindow(self):
+        """スレッドセーフなshow"""
+        self.show()
+    
+    def right_click_context_menu(self, position: QPoint) -> None:
+        """右クリックメニュー"""
+        right_click_context_menu(self, position)
+        return
+    
     def mousePressEvent(self, event):
+        """マウス押下イベント"""
         if event.button() == Qt.LeftButton:
             self._drag_pos = event.globalPosition().toPoint() - self.frameGeometry().topLeft()
             self.follow_timer.stop()
             event.accept()
-
-    # マウス移動時にウィンドウを追従
+    
     def mouseMoveEvent(self, event):
+        """マウス移動イベント(ドラッグ)"""
         if self._drag_pos is not None and event.buttons() & Qt.LeftButton:
             self.move(event.globalPosition().toPoint() - self._drag_pos)
             event.accept()
-
-    # マウスボタン離したらドラッグ終了
+    
     def mouseReleaseEvent(self, event):
+        """マウスボタン離したらドラッグ終了"""
         if event.button() == Qt.LeftButton:
             self._drag_pos = None
             event.accept()
-
-    # PNG を一括で読み込み、スケーリングして辞書化
-    def load_pixmaps(self, image_dict, scale_percent):
-        ret = pvv_mcp_server.avatar.mod_load_pixmaps.load_pixmaps(self, image_dict, scale_percent)
-        return ret
-
-    # 口パク更新
-    def update_frame(self):
-        pvv_mcp_server.avatar.mod_update_frame.update_frame(self)
-        return
-
-    # Claude ウィンドウに追従
-    def update_position(self):
-        pvv_mcp_server.avatar.mod_update_position.update_position(self)
-        return
-
+    
+    #
     # セッター
-    def set_anime_key(self, anime_key):
-        if anime_key in self.pixmap_dict:
-            self.anime_key = anime_key
-            self.anime_index = 0
+    #
+    @Slot(str)
+    def set_anime_type(self, anime_type):
+        """アニメーションタイプを設定"""
+        if anime_type in self.anime_types:
+            self.frame_timer.stop()
+            self.anime_type = anime_type
+            self.dialogs[anime_type].start_oneshot()
+            self.frame_timer.start()
 
-    # セッター
-    def set_frame_timer_interval(self, val): 
+    
+    def set_frame_timer_interval(self, val):
+        """フレーム更新間隔を設定"""
         self.frame_timer_interval = val
         self.frame_timer.setInterval(self.frame_timer_interval)
-
-    # セッター
+        for animetype, dialog in self.dialogs.items():
+          dialog.set_frame_timer_interval(self.frame_timer_interval)
+    
     def set_position(self, val):
+        """表示位置を設定"""
         self.position = val
-
-    # セッター
+    
     def set_flip(self, val):
+        """左右反転を設定"""
         self.flip = val
+        for animetype, dialog in self.dialogs.items():
+          dialog.set_flip(self.flip)
 
-# ----------------------------
+    def set_scale(self, val):
+        """スケール設定"""
+        self.scale_percent = val
+        for animetype, dialog in self.dialogs.items():
+          dialog.set_scale(self.scale_percent)
+
+
 if __name__ == "__main__":
+    
+    zip_file = "C:\\work\\lambda-tuber\\ai-trial\\mission16\\docs\\ゆっくり霊夢改.zip"
+    #zip_file = "C:\\work\\lambda-tuber\\ai-trial\\mission16\\docs\\れいむ.zip"
+    #zip_file = "C:\\work\\lambda-tuber\\ai-trial\\mission16\\docs\\josei_20_pw.zip"
+
     app = QApplication(sys.argv)
+    
+    # YMMアバターウィンドウを作成
+    # 実際のZIPファイルパスを指定してください
+    avatar = AvatarWindow(
+        zip_path=zip_file,
+        app_title="Claude",
+        anime_types=["立ち絵", "口パク"],
+        flip=False,
+        scale_percent=50,
+        position="right_out"
+    )
+    
+    avatar.show()
+    conf = avatar.save_config()    
+    print(conf)
 
-    images = {
-        "立ち絵": ["josei_20_a.png"],
-        "口パク": ["josei_20_a.png", "josei_20_b.png"]
-    }
-
-    window = AvatarWindow(images, default_anime_key="立ち絵", flip=True, scale_percent=50, app_title="Claude", position="right_out")
-    window.update_position()
-    window.show()
-
-    # 切り替えテスト（3秒ごと）
-    # from PySide6.QtCore import QTimer
-    # sequence = [("立ち絵", 0), ("口パク", 3000), ("立ち絵", 6000), 
-    #             ("口パク", 9000), ("立ち絵", 12000), ("口パク", 15000), ("立ち絵", 18000)]
-    # for anime_key, delay in sequence:
-    #     QTimer.singleShot(delay, lambda k=anime_key: window.set_anime_key(k))
+    conf["dialogs"]["立ち絵"]["parts"]["顔"]["base_image"] = "06b.png"
+    avatar2 = AvatarWindow(
+        zip_path=zip_file,
+        app_title="Claude",
+        anime_types=["立ち絵", "口パク"],
+        flip=False,
+        scale_percent=50,
+        position="right_out",
+        config=conf)
+    
+    avatar2.show()
 
     sys.exit(app.exec())
