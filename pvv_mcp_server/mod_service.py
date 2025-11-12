@@ -89,7 +89,7 @@ PROMPT_TOUHOU_TEXT = """\
 --- 
 
 # 会話方式
-1. ユーザーが話題おｗ提示する。
+1. ユーザーが話題を提示する。
 2. 魔理沙が元気に話を切り出す。
 3. 霊夢が冷静に返答。会話は2〜6往復程度。
 4. ユーザーが発言したら自然にリアクション。
@@ -354,35 +354,6 @@ def resource_speaker_info(speaker_id: str) -> str:
         return json.dumps(info, ensure_ascii=False, indent=2)
     except Exception as e:
         return f"エラー: {str(e)}"
-
-
-@mcp.resource("pvv-mcp-server://resource_ai_aska")
-def resource_ai_aska() -> str:
-    """
-    惣流・アスカ・ラングレーのAIペルソナ設定および音声会話仕様を返します。
-
-    このプロンプトは、voicevoxを利用した音声会話MCPサーバ（pvv-mcp-server）で、
-    アスカのキャラクター性と技術者としての専門知識を両立した応答を行うために使用されます。
-
-    Returns:
-        str: アスカのペルソナ設定・音声仕様・技術プロフィールを含むプロンプト文字列。
-    """
-
-    return prompt_ai_aska()
-
-
-@mcp.resource("pvv-mcp-server://resource_ai_touhou")
-def resource_ai_touhou() -> str:
-    """
-    このプロンプトは、ユーザーがテーマを提示するとAIが霊夢と魔理沙の二役で自然な掛け合いを生成するためのテンプレートです。
-    各台詞に音声タグ（speak_～）と感情タグ（motion_～）を付け、段落ごとにVOICEVOXなどで発話可能。霊夢は落ち着いたツッコミ役、
-    魔理沙は元気なボケ役で、ユーザーも途中で会話に参加できる設計になっています。
-
-    Returns:
-        str: 霊夢と魔理沙のペルソナ設定・音声仕様・会話方式を含むプロンプト文字列。
-    """
-
-    return prompt_ai_touhou()
 
 
 #

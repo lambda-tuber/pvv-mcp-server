@@ -29,7 +29,7 @@ class AvatarDialog(QDialog):
         #self.setObjectName(f"dialog_{anime_type}")
         self.current_pixmap = None
 
-        self.parts = ['後', '体', '顔', '髪', '口', '目', '眉', '他']
+        self.parts = ['後', '体', '顔', '髪', '口', '目', '眉', '服下', '服上', '全', '他']
         self.part_widgets = {}
         for cat in self.parts:
             file_names = list(zip_dat[cat].keys())
@@ -58,15 +58,17 @@ class AvatarDialog(QDialog):
         grid_layout = QGridLayout(grid_widget)
         grid_layout.setSpacing(10) # グリッド間のスペースを設定
         
-        # 3x3 グリッドの配置順序を定義 (中央のインデックス: 4)
+        # 4x3 グリッドの配置順序を定義
         # 0 1 2
         # 3 4 5
-        # 6 7 8 (8つのウィジェットと中央のラベルで合計9セルを使用)
+        # 6 7 8
+        # 9 10 11
         widget_keys = ['目', '眉', '顔',
                        '口',       '髪',
-                       '体', '後', '他']
+                       '体', '後', '服下',
+                       '服上', '全', '他']
         
-        for i in range(9):
+        for i in range(12):
             row = i // 3  # 行インデックス (0, 1, 2)
             col = i % 3   # 列インデックス (0, 1, 2)
             

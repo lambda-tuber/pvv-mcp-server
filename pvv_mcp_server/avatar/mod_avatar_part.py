@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QComboBox, QListWidget, QListWidgetItem,
-    QVBoxLayout, QHBoxLayout, QScrollArea
+    QVBoxLayout, QHBoxLayout, QScrollArea, QCheckBox
 )
 from PySide6.QtWidgets import QHBoxLayout, QLabel, QRadioButton, QButtonGroup
 from PySide6.QtCore import Qt
@@ -46,6 +46,7 @@ class AvatarPartWidget(QWidget):
         self.update_idx = 0    
         self.interval = 3
         self.anime_type = "固定"
+        self.is_enabled = True  # パーツの有効状態
         self.random_wait_tick = random.choice([10, 20, 30, 40, 50])
         self.random_wait_idx = 0
         self.random_anime_idx = 0
@@ -68,7 +69,8 @@ class AvatarPartWidget(QWidget):
             "base_image": self.base_image,
             "selected_files": self.selected_files.copy(),
             "interval": self.interval,
-            "anime_type": self.anime_type
+            "anime_type": self.anime_type,
+            "is_enabled": self.is_enabled
         }
         logger.info(f"save_config [{self.part_name}]: {config}")
         return config
@@ -95,6 +97,9 @@ class AvatarPartWidget(QWidget):
         if "anime_type" in config:
             self.anime_type = config["anime_type"]
         
+        if "is_enabled" in config:
+            self.is_enabled = config["is_enabled"]
+        
         # カウンタ類をリセット
         self.update_idx = 0
         self.loop_anime_idx = 0
@@ -119,7 +124,17 @@ class AvatarPartWidget(QWidget):
         part_name_layout.addStretch(1)
         main_layout.addLayout(part_name_layout)
 
-        # 2段目: ベース画像
+        # 2段目: 有効／無効チェックボックス
+        enabled_layout = QHBoxLayout()
+        enabled_layout.addWidget(QLabel("有効／無効:"))
+        self.check_enabled = QCheckBox()
+        self.check_enabled.setChecked(True)
+        self.check_enabled.stateChanged.connect(self._on_enabled_changed)
+        enabled_layout.addWidget(self.check_enabled)
+        enabled_layout.addStretch(1)
+        main_layout.addLayout(enabled_layout)
+
+        # 3段目: ベース画像
         base_layout = QHBoxLayout()
         base_layout.addWidget(QLabel("ベース画像:"))
         self.combo_base = QComboBox()
@@ -129,7 +144,7 @@ class AvatarPartWidget(QWidget):
         base_layout.addStretch(1)
         main_layout.addLayout(base_layout)
 
-        # 3段目: アニメ画像
+        # 4段目: アニメ画像
         anim_layout = QHBoxLayout()
         anim_layout.addWidget(QLabel("アニメ画像:"), alignment=Qt.AlignTop)
         self.list_anim = QListWidget()
@@ -141,7 +156,7 @@ class AvatarPartWidget(QWidget):
         anim_layout.addWidget(self.list_anim)
         main_layout.addLayout(anim_layout)
 
-        # 4段目: interval
+        # 5段目: interval
         interval_layout = QHBoxLayout()
         interval_layout.addWidget(QLabel("インターバル:"))
         self.combo_interval = QComboBox()
@@ -152,7 +167,7 @@ class AvatarPartWidget(QWidget):
         interval_layout.addStretch(1)
         main_layout.addLayout(interval_layout)
 
-        # 5段目: アニメーションタイプ
+        # 6段目: アニメーションタイプ
         anim_type_layout = QHBoxLayout()
         anim_type_layout.addWidget(QLabel("アニメタイプ:"))
 
@@ -189,6 +204,11 @@ class AvatarPartWidget(QWidget):
         """設定値をGUIウィジェットに反映"""
         logger.info(f"_apply_config_to_gui [{self.part_name}]")
         logger.info(f"  selected_files: {self.selected_files}")
+        
+        # 有効／無効のチェックボックス
+        self.check_enabled.blockSignals(True)
+        self.check_enabled.setChecked(self.is_enabled)
+        self.check_enabled.blockSignals(False)
         
         # ベース画像のコンボボックス
         if self.base_image:
@@ -235,6 +255,11 @@ class AvatarPartWidget(QWidget):
     #
     # gui handlers
     #
+    def _on_enabled_changed(self, state):
+        """有効／無効チェックボックスの状態変化ハンドラ"""
+        self.is_enabled = bool(state)
+        logger.info(f"is_enabled [{self.part_name}]: {self.is_enabled}")
+
     def _update_selected_files(self):
         self.selected_files = [item.text() for item in self.list_anim.selectedItems()]
         logger.info(f"selected_files: {self.selected_files}")
@@ -266,12 +291,18 @@ class AvatarPartWidget(QWidget):
     #
     def start_oneshot(self):
         """外部からoneshotアニメを開始するトリガー"""
+        if not self.is_enabled:
+            return 
+
         if len(self.selected_files) > 0:
             logger.info(f"{self.part_name}: start_oneshot")
             self.oneshot_idx = 1
             
 
     def update(self):
+        if not self.is_enabled:
+            return None
+
         if len(self.image_files) == 0:
             return None
 
@@ -411,7 +442,8 @@ if __name__ == "__main__":
         "base_image": "02.png",
         "selected_files": ["01.png", "03.png"],
         "interval": 2,
-        "anime_type": "ループ"
+        "anime_type": "ループ",
+        "is_enabled": True
     }
     part_widget2 = AvatarPartWidget("口", ["01.png", "02.png", "03.png"], config=preset_config)
     
@@ -420,4 +452,3 @@ if __name__ == "__main__":
     part_widget2.show()
 
     sys.exit(app.exec())
-    

@@ -28,8 +28,8 @@ def load_image(source, speaker_id=None):
         dict: パーツカテゴリ別の画像データ辞書
     """
     
-    parts_folder = ['後', '体', '顔', '髪', '口', '目', '眉', '他']
-    
+    parts_folder = ['後', '体', '顔', '髪', '口', '目', '眉', '服下', '服上', '全', '他']
+
     # 1. 空文字列 → VOICEVOXのポートレート
     if source == "portrait":
         return _load_voicevox_portrait(speaker_id)
@@ -123,7 +123,10 @@ def _load_local_zip(zip_path, parts_folder):
                         cat = parts[-2]  # 「口」「他」などのカテゴリ
                         if cat not in parts_folder:
                             logger.info(f"ZIPファイル: {info.filename}")
-                            cat = "他"
+                            if cat == "服下":
+                                cat = "後"
+                            else:
+                                cat = "他"
                         fname = parts[-1]  # ファイル名
                         zip_data[cat][fname] = file_content_bytes
 
@@ -152,7 +155,6 @@ def _load_zip_from_url(url, parts_folder):
             zip_bytes = response.read()
 
         logger.info(f"ダウンロード完了: {len(zip_bytes)} bytes")
-
         # メモリ上で展開
         zip_buffer = io.BytesIO(zip_bytes)
         zip_data = defaultdict(dict)
@@ -161,14 +163,19 @@ def _load_zip_from_url(url, parts_folder):
                 with zf.open(info) as file:
                     if not info.filename.endswith(".png"):
                         continue
-                    parts = info.filename.split("/")
-                    if len(parts) >= 3:
-                        file_content_bytes = file.read()
-                        cat = parts[-2]
-                        if cat not in parts_folder:
-                            cat = "他"
-                        fname = parts[-1]
-                        zip_data[cat][fname] = file_content_bytes
+                    (cat, fname) = _parse_cat_path(info.filename, parts_folder)
+                    zip_data[cat][fname] = file.read()
+                    # parts = info.filename.split("/")
+                    # if len(parts) >= 3:
+                    #     file_content_bytes = file.read()
+                    #     cat = parts[-2]
+                    #     if cat not in parts_folder:
+                    #         if cat == "服下":
+                    #             cat = "後"
+                    #         else:
+                    #             cat = "他"
+                    #     fname = parts[-1]
+                    #     zip_data[cat][fname] = file_content_bytes
 
         logger.info(f"URLからZIPファイルを読み込みました: {url}")
         return zip_data
@@ -176,6 +183,47 @@ def _load_zip_from_url(url, parts_folder):
     except Exception as e:
         logger.error(f"URL ZIPファイル読み込みエラー: {e}")
         return defaultdict(dict)
+
+
+def _parse_cat_path(filepath: str, parts_folder):
+    """
+    キャラ素材パスからカテゴリとファイル名を判定して返す。
+    前提：
+      - カテゴリはパスの下位から第2層 or 第3層にのみ存在。
+      - それ以外の階層にある場合は「他」とする。
+    仕様：
+      - 「服下」は「後」に変換。
+      - カテゴリ直下に 00/01 フォルダがあれば、影あり／なしとして接頭辞を付ける。
+    """
+    #parts = filepath.replace("\\", "/").split("/")
+    #parts = [p for p in parts if p]
+    parts = filepath.split("/")
+    filename = parts[-1]
+
+    cat = "他"
+    prefix = ""
+
+    # 下位2層目と3層目のみチェック
+    candidates = []
+    if len(parts) >= 2:
+        candidates.append(parts[-2])  # 下から2層目
+    if len(parts) >= 3:
+        candidates.append(parts[-3])  # 下から3層目
+
+    for p in candidates:
+        if p in parts_folder:
+            cat = p
+            # 直下のフォルダで影あり/影なし判定
+            idx = parts.index(p)
+            if idx + 1 < len(parts):
+                if parts[idx + 1] == "00":
+                    prefix = "00_"
+                elif parts[idx + 1] == "01":
+                    prefix = "01_"
+            break
+
+    filename = prefix + filename
+    return cat, filename
 
 
 def _load_voicevox_portrait(speaker_id: str):
@@ -214,7 +262,8 @@ def _load_voicevox_portrait(speaker_id: str):
 
 def _create_empty_zip_data():
     """空のzip_dataを作成"""
-    parts_folder = ['後', '体', '顔', '髪', '口', '目', '眉', '他']
+    parts_folder = ['後', '体', '顔', '髪', '口', '目', '眉', '服下', '服上', '全', '他']
+
     zip_data = defaultdict(dict)
     
     # 各カテゴリに空の辞書を設定
@@ -245,5 +294,9 @@ if __name__ == "__main__":
     # テスト4: URL
     print("\n=== テスト4: URL ===")
     url = "http://www.nicotalk.com/sozai/きつねゆっくり/れいむ.zip"
+    url = "http://nicotalk.com/sozai/新きつねゆっくり/新まりさ.zip"
+    #url = "http://nicotalk.com/sozai/新きつねゆっくり/新れいむ.zip"
     png_dat = load_image(url)
     print(f"カテゴリ: {list(png_dat.keys())}")
+
+

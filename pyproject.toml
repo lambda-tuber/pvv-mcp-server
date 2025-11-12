@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pvv-mcp-server"
-version = "0.4.1"
+version = "0.5.0"
 description = "MCP server for VOICEVOX text-to-speech synthesis"
 readme = "README.md"
 requires-python = ">=3.11"

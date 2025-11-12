@@ -15,7 +15,7 @@
     "type": "python",
     "entry_point": "pvv-mcp-server",
     "mcp_config": {
-      "command": "pvv-mcp-server",
+      "command": "uvx pvv-mcp-server",
       "args": [
         "-y",
         "${__dirname}/pvv-mcp-server.yaml"
@@ -26,12 +26,6 @@
       }
     }
   },
-  "tools": [
-  ],
-  "tools_generated": true,
-  "prompts": [
-  ],
-  "prompts_generated": true,
   "keywords": [
     "VOICEVOX",
     "MCP",

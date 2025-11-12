@@ -15,3 +15,8 @@ Pillow
 imageio[ffmpeg]
 moviepy
 pydub
+
+pyaudio
+librosa
+soundfile
+imageio-ffmpeg
