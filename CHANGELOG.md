@@ -1,5 +1,9 @@
 # Revision history for pvv-mcp-server
 
+## 0.5.0 -- 2025-11-17
+
+* [ADD] add some parts.
+
 ## 0.4.0 -- 2025-10-26
 
 * [ADD] add avatar.
