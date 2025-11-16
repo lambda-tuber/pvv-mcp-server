@@ -15,7 +15,7 @@
     "type": "python",
     "entry_point": "pvv-mcp-server",
     "mcp_config": {
-      "command": "uvx pvv-mcp-server",
+      "command": "pvv-mcp-server",
       "args": [
         "-y",
         "${__dirname}/pvv-mcp-server.yaml"
