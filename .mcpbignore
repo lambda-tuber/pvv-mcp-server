@@ -22,7 +22,7 @@ libs/*
 manifest_uvx.json
 manifest.pip.json
 pty-mcp-server/*
-create_mcpb.sh
+83_create_mcpb.sh
 *.pem
 *.key
 .github

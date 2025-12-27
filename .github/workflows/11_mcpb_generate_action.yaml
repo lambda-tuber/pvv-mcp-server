@@ -25,8 +25,8 @@ jobs:
 
       - name: Run create_mcpb.sh
         run: |
-          chmod +x ./create_mcpb.sh
-          ./create_mcpb.sh "${{ github.event.inputs.version }}"
+          chmod +x ./83_create_mcpb.sh
+          ./83_create_mcpb.sh "${{ github.event.inputs.version }}"
 
       - name: Create GitHub Release and upload MCPB
         uses: softprops/action-gh-release@v2
