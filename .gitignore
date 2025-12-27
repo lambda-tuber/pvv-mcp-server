@@ -17,7 +17,3 @@ mission03
 pty-mcp-server/*
 *.pem
 *.key
-.github
-.dxtignore
-.gitignore
-.gitattributes
