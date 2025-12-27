@@ -15,3 +15,9 @@ mission03
 **/*avi
 **/build/*
 pty-mcp-server/*
+*.pem
+*.key
+.github
+.dxtignore
+.gitignore
+.gitattributes
