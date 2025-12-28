@@ -1,5 +1,9 @@
 # Revision history for pvv-mcp-server
 
+## 0.6.0 -- 2025-12-31
+
+* [MODIFY] modify default prompt.
+
 ## 0.5.0 -- 2025-11-17
 
 * [ADD] add some parts.
